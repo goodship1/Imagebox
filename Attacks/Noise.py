@@ -19,6 +19,7 @@ class Noise(object):
         
 
     def speckle(image):
+        '''Salt and pepper noise'''
         image = cv.opne(image)
         speckle = np.random(1,0,image.size)
         speckle = speckle.reshape(image.shape[0].image.shape[1],image.shape[2]).astype('unint8')
