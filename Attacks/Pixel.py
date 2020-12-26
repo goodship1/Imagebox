@@ -1,10 +1,12 @@
 import numpy as np
+import keras 
 class Pixel(object):
 
     '''Class for pixel attacks on images'''
-    def imagepreprocessing(image):
-        pass
+
+
     def pixelchange(image,location):
+        '''Changing pixel at current location'''
         store = list()
         location = location.astype(int)
         if location.ndim < 2:
@@ -12,11 +14,16 @@ class Pixel(object):
         for i,image in zip(location,image):
             pixel = np.split(i ,len(i) // 5)
             for x in pixel:
-            
+                x_pos ,y_pos * rgb = x
+                image[x_pos,y_pos] = rgb
+        return image
     
     def onePixel(image,label,model):
+        '''Applying one pixel change'''
         predictions  = list()
+        pixel_list = list()
         predictions.append(label)
+        
 
 
 
