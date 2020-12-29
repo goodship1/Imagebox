@@ -20,6 +20,9 @@ class Pixel(object):
     
     def onePixel(image,label,model):
         '''Applying one pixel change'''
+        image = cv.read(image)
+        width,height =  image.shape
+
         predictions  = list()
         pixel_list = list()
         predictions.append(label)
