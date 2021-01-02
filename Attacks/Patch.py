@@ -1,11 +1,17 @@
 class Patch(object):
+    '''Class for generating advarsarial patch attack'''
 
     def __str__(self):
         return "Advarsarial patch"
         
     
-    def generatepath(self):
+    def generatepatch(self):
+        '''Generating advarsarial patch on image'''
+        pass
+    
+    def locationofpatch(self,location):
         pass
         
-    def applypatch(image):
+    def applypatch(self,image):
+        '''applying the advarsarial patch of choosen image'''
         pass
