@@ -10,6 +10,7 @@ class Patch(object):
         pass
     
     def locationofpatch(self,location):
+        '''Location of patch to be applied'''
         pass
         
     def applypatch(self,image):
