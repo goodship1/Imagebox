@@ -22,6 +22,10 @@ class Pixel(object):
         '''Applying one pixel change'''
         image = cv.read(image)
         width,height =  image.shape
+        for x in range(width):
+            for y in range(height):
+                location =  np.array[(x,y,255,255,0])
+
 
         predictions  = list()
         pixel_list = list()
