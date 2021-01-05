@@ -18,6 +18,9 @@ class Pixel(object):
                 image[x_pos,y_pos] = rgb
         return image
     
+    def functionalpixel(image,location):
+        pass
+
     def onePixel(image,label,model):
         '''Applying one pixel change'''
         image = cv.read(image)
@@ -25,6 +28,8 @@ class Pixel(object):
         for x in range(width):
             for y in range(height):
                 location =  np.array[(x,y,255,255,0])
+                makechange = pixelchange(image,location)
+                
 
 
         predictions  = list()
