@@ -1,3 +1,5 @@
+import keras
+
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
 
@@ -5,7 +7,7 @@ class Patch(object):
         return "Advarsarial patch"
         
     
-    def generatepatch(self):
+    def generatepatch(self,model):
         '''Generating advarsarial patch on image'''
         pass
     
