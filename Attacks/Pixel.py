@@ -5,7 +5,7 @@ class Pixel(object):
     '''Class for pixel attacks on images'''
 
 
-    def pixelchange(image,location):
+    def pixelchange(self,image,location):
         '''Changing pixel at current location'''
         store = list()
         location = location.astype(int)
@@ -18,10 +18,10 @@ class Pixel(object):
                 image[x_pos,y_pos] = rgb
         return image
     
-    def functionalpixel(image,location):
+    def functionalpixel(self,image,location):
         pass
 
-    def onePixel(image,label,model):
+    def onePixel(self,image,label,model):
         '''Applying one pixel change'''
         image = cv.read(image)
         width,height =  image.shape
