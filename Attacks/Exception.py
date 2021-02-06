@@ -1,3 +1,9 @@
-class Exception(object):
+import Exception
+class Error(Exception):
+    
 
-    pass
+    def __str__(self):
+        return "Error string"
+
+    def FGSMerror(self):
+        return "FGSM cant be applied"
