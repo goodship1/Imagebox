@@ -14,15 +14,19 @@ class Rotate(object):
     
     def _heightconvert(self,image,cos,sin):
         
-        height =  round((image.shape[0*cos)(image.shape[1]*sin))+1
+        height =  round((image.shape[0*cos)+(image.shape[1]*sin))+1
         if height < 0:
                 height =  abs(height)
         return height
 
 
     
-    def _widthconvert(self,image):
-        pass
+    def _widthconvert(self,image,cos,sin):
+        width  = round((image.shape[1]*cos)+(image.shape[0]*sin))+1
+        if width <0:
+                width =  abs(width)
+        return width
+
 
     def anticlockwise(self,image,degrees):
         pass
@@ -33,5 +37,7 @@ class Rotate(object):
         cosine =  math.cos(radians)
         sine = math.sine(radians)
         height  = self.heightconvert(image,cosine,sine)
+        width =  self.widthconvert(image,cosine,sine)
+        new_image = np.zeros(height,width,image.shape[2])
 
         
