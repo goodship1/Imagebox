@@ -4,17 +4,7 @@ class Pixel(object):
     '''Class for pixel attacks on images'''
 
 
-    def pixelchange(self,image,location):
-        '''Changing pixel at current location'''
-        location = location.astype(int)
-        if location.ndim < 2:
-            location = np.array([location])
-        for i,image in zip(location,image):
-            pixel = np.split(i ,len(i) // 5)
-            for x in pixel:
-                x_pos ,y_pos * rgb = x
-                image[x_pos,y_pos] = rgb
-        return image
+    
     
     def functionalpixel(self,image,location):
         pass
