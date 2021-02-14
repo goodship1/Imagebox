@@ -1,5 +1,4 @@
 import numpy as np
-import keras 
 class Pixel(object):
 
     '''Class for pixel attacks on images'''
@@ -7,7 +6,6 @@ class Pixel(object):
 
     def pixelchange(self,image,location):
         '''Changing pixel at current location'''
-        store = list()
         location = location.astype(int)
         if location.ndim < 2:
             location = np.array([location])
@@ -29,12 +27,16 @@ class Pixel(object):
             for y in range(height):
                 location =  np.array[(x,y,255,255,0])
                 makechange = pixelchange(image,location)
+                if model.predict_class(image) == label:
+                    return makechange
+                elif modle.predict_class(image) != label:
+                     image = cv.read(image)
+
+
+
                 
 
 
-        predictions  = list()
-        pixel_list = list()
-        predictions.append(label)
         
 
 
