@@ -6,6 +6,11 @@ class Patch(object):
     def __str__(self):
         return "Advarsarial patch"
         
+    def MPA(self,image):
+        pass
+    
+    def TPA(self,image):
+        pass
     
     def generatepatch(self,model):
         '''Generating advarsarial patch on image'''
