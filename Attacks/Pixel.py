@@ -10,6 +10,10 @@ class Pixel(object):
 
     def pixelchange(self,location,image):
         '''changes the pixel at given location
+        location -> np.array of pixel change eg (16,16,255,255,255)
+        image -> np.array of image
+        return  -> np.array of image with pixel change
+  
         '''
         if locations.ndim < 2:
             locations = np.array([locations])
@@ -45,6 +49,7 @@ class Pixel(object):
         image -> image of numpy array format preprocssed
         label -> INT
         model -> trained classfier
+        return -> np.array of image
         '''
         height =  image.shape[0]
         widht =  image.shape[1]
