@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import image
+from PIL import Image
 class Pixel(object):
 
     '''Class for pixel attacks on images
@@ -8,7 +8,7 @@ class Pixel(object):
     image'''
 
 
-    def pixelchange(self,location,image):
+    def pixelchange(self,locations,image):
         '''changes the pixel at given location
         location -> np.array of pixel change eg (16,16,255,255,255)
         image -> np.array of image
@@ -20,13 +20,13 @@ class Pixel(object):
         tile = [len(locations)] + [1]*(locations.ndim+1)
         imgs = np.tile(image, tile)
         locations = locations.astype(int)
-    for x,image in zip(locations, imgs):
-        pixels = np.split(x, len(x) // 5)
-        for pixel in pixels:
-            x_pos, y_pos, *rgb = pixel
-            image[x_pos, y_pos] = rgb
-    
-    return imgs
+        for x,image in zip(locations ,imgs):
+            pixels = np.split(x, len(x) // 5)
+            for pixel in pixels:
+                x_pos, y_pos, rgb = pixel
+                image[x_pos, y_pos] = rgb
+        return imgs
+  
     
     def functionalpixel(self,image,color,changecolor):
         '''Image -> string file path 
@@ -55,7 +55,7 @@ class Pixel(object):
         widht =  image.shape[1]
         for x in range(width):
             for y in range(height):
-                location =  np.array[(x,y,255,255,0])
+                location =  np.array([x,y,255,255,0])
                 makechange = pixelchange(image,location)
                 if model.predict_class(image) == label:
                     return makechange
