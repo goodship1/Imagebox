@@ -1,4 +1,3 @@
-import Pixel
 from PIL import Image
 import random
 class Patch(object):
@@ -7,49 +6,73 @@ class Patch(object):
     def __str__(self):
         return "Advarsarial patch"
     
-    def __init__(self):
-        self.pixel  = Pixel()
-        #self.gradient = Gradient()
    
-    def generateblackpatch(self,image):
+    def generatebpatch(self,image rbg = (0,0,0):
         '''Helper function to generate black patch
         image -> user image
         return -> np.array
         '''
-        black = (0,0,0)
         read =  cv.imread(image)
         width = image.shape[0]
         height =  image.shape[1]
         random_width = random.randint(width) - 10
         random_height = radom.randint(height) - 10
-        im = Image.new('RGB', (random_width, random_height), black)
+        im = Image.new('RGB', (random_width, random_height), rbg)
         return im
 
-    
+
+    def samplebasedrbg(self,image,rbg):
+        '''Modfied version of sample based'''
+        patch = self.generatepatch(image,rbg)
+        image = Image.open(image)
+        width = image.shape[0]
+        height = image.shape[1]
+        random_width = random.randint(1,width)
+        random_height = random.randint(1,height)
+        modified = image.paste(patch,(random_width,random_height))
+        return modifed
+
+
     def samplebased(self,image):
-        '''Sample based patch attack
+        '''Sample based patch attack gray scale
         image -> user image
         return -> user patch image
         '''
-        patch =  self.generateblackpatch(image)
+        patch =  self.generatepatch(image)
         image = Image.open(image)
         generate  = random.randint(1,5)
         width = image.shape[0]
         height = image.shape[1]
         random_width = random.randint(1,width)
         random_height = random.rand(1,height)
-        modified = image.paste((patch,(random_width,random_height)))
+         modified = image.paste((patch,(random_width,random_height)))
         return modified 
 
             
+    def generatesample(self,image):
+        '''generate image samples
+        image -> user inputted image'''
+        Image = cv.imread(image)
+        width = image.shape[0]
+        height = image.shape[1]
+        sample_set = list()
+        for x in range(width):
+            for y in range(height):
+                    sample_set.append((x,y))
+        sample_set= np.array(sample_set)
+        sample_set = np.random_shuffle(sample_set)
+
+
+
+
 
 
     def loadtextures(self):
         pass
 
-    def HPA(self,image):
+    def HPA(self,image,model,label = None):
         pass
-    def MPA(self,image):
+    def MPARBG(self,image):
         pass
     
     def TPA(self,image):
