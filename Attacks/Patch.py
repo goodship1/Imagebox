@@ -2,7 +2,7 @@ from PIL import Image
 import random
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
-
+i
     def __str__(self):
         return "Advarsarial patch"
     
@@ -61,6 +61,10 @@ class Patch(object):
                     sample_set.append((x,y))
         sample_set= np.array(sample_set)
         sample_set = np.random_shuffle(sample_set)
+        return sample_set
+
+    def ksamples(self):
+        pass
 
 
 
