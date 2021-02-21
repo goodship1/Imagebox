@@ -2,7 +2,7 @@ from PIL import Image
 import random
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
-i
+
     def __str__(self):
         return "Advarsarial patch"
     
@@ -61,11 +61,19 @@ i
                     sample_set.append((x,y))
         sample_set= np.array(sample_set)
         sample_set = np.random_shuffle(sample_set)
+        k = 3#number of samples generated
+        index = 0#starting index
+        res = [0]*k
+        sample_len = len(sample_set)
+        for i in range(k):
+            res = sample_set[i]
+        
+        while(index < sample_len):
+
+            random_pick = random.randrange(index+1)
+            if random_pick < k):
+                res[j] == sample_set
         return sample_set
-
-    def ksamples(self):
-        pass
-
 
 
 
