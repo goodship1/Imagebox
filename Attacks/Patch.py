@@ -83,7 +83,26 @@ class Patch(object):
         pass
 
     def HPA(self,image,model,label = None):
-        pass
+        epsilion = self.generatesample(image)
+        patch = self.generatepatch(Iimage)
+        adv = list()
+        image = Image.open(image)
+        for x in eplison:
+            place = image.paste(patch,(x))
+            convert =  np.array(place)
+            adv.append(convert)
+        if label != None:
+            for test in adv:
+                pred=model.predict(test)
+                if pred == label:
+                    return 1
+        return np.array(adv)
+
+
+
+
+
+        
     def MPARBG(self,image):
         pass
     
