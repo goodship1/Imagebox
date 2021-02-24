@@ -7,17 +7,17 @@ class Patch(object):
         return "Advarsarial patch"
     
    
-    def generatebpatch(self,image rbg = (0,0,0):
+     def generatepatch(self,image ,rbg = (0,0,0)):
         '''Helper function to generate black patch
         image -> user image
         return -> np.array
         '''
         read =  cv.imread(image)
-        width = image.shape[0]
-        height =  image.shape[1]
-        random_width = random.randint(width) - 10
-        random_height = radom.randint(height) - 10
-        im = Image.new('RGB', (random_width, random_height), rbg)
+        width = read.shape[0]
+        height =  read.shape[1]
+        random_width = random.randint(9,width) - 10
+        random_height = random.randint(9,height) - 10
+        im = Image.new('RGB',(random_width, random_height), rbg)
         return im
 
 
@@ -27,11 +27,13 @@ class Patch(object):
         image = Image.open(image)
         width = image.shape[0]
         height = image.shape[1]
-        random_width = random.randint(1,width)
-        random_height = random.randint(1,height)
-        modified = image.paste(patch,(random_width,random_height))
-        return modifed
+        random_width = random.randint(1,width)-1
+        random_height = random.randint(1,height)-1
+        image.paste(patch,(random_width,random_height))
+        return (image,np.array(image))
+  
 
+    
 
     def samplebased(self,image):
         '''Sample based patch attack gray scale
@@ -41,42 +43,44 @@ class Patch(object):
         patch =  self.generatepatch(image)
         image = Image.open(image)
         generate  = random.randint(1,5)
-        width = image.shape[0]
-        height = image.shape[1]
+        width , height = image.size
         random_width = random.randint(1,width)
-        random_height = random.rand(1,height)
-         modified = image.paste((patch,(random_width,random_height)))
-        return modified 
-
+        random_height = random.randint(1,height)
+        image.paste(patch,(random_width,random_height))
+        return (image,np.array(image))
             
     def generatesample(self,image):
         '''generate image samples
         image -> user inputted image'''
-        Image = cv.imread(image)
+        image = cv.imread(image)
         width = image.shape[0]
         height = image.shape[1]
         sample_set = list()
         for x in range(width):
             for y in range(height):
                     sample_set.append((x,y))
-        sample_set= np.array(sample_set)
-        sample_set = np.random_shuffle(sample_set)
+        
+        random.shuffle(sample_set)
         k = 3#number of samples generated
         index = 0#starting index
         res = [0]*k
         sample_len = len(sample_set)
-        for i in range(k):
-            res = sample_set[i]
+        for index in range(k):
+            res[index] = sample_set[index]
         
-        while(index < sample_len):
-
+        while index < sample_len:
             random_pick = random.randrange(index+1)
-            if random_pick < k):
-                res[j] == sample_set
-        return sample_set
+            if random_pick < k:
+                res[random_pick] = sample_set[index]
+            index+=1
+        return res
 
 
+    def generatenoisepatch(self,image):
+        pass
 
+    def noisepatch(self,image):
+        pass
 
 
     def loadtextures(self):
