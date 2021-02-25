@@ -88,4 +88,30 @@ class Patch(object):
         image.paste(patch,(random_width,random_height))
         return (image,np.array(image))
       
-        
+    def generatempapatchs(self,image,rbg =(0,0,0)):
+        '''Generates the MPA patches of mpa attack'''
+        read = cv.imread(image)
+        width = read.shape[0]
+        height = read.shape[1]
+        random_height =  random.randint(1,height)
+        im = Image.new('RGB',(1, random_height), rbg)
+        return im
+    
+
+
+    def MPA(self,image,model = None,greyscale = True,samples = 3):
+        patch = self.generatempapatches(image)
+        esp = self.generatesamples(image,samples)
+        image = Image.open(image)
+        if greyscale == True:
+          for e in esp:
+            image.paste(patch,(e))
+        if greyscale == False:
+          rbg =(230,100,50)
+          rbg_patch = self.generatempapatch(image,rbg)
+          for e  in esp:
+            image.paste(patch,(e))
+        if model == None and greyscale == True:
+          return (image,np.array(image),esp)
+        if model != None and greyscale == False:
+          return (image,np.array(image),esp)
