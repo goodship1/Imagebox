@@ -28,7 +28,7 @@ class Pixel(object):
         return imgs
   
     
-    def functionalpixel(self,image,color,changecolor):
+    def functionalpixel(self,image,color,changecolor,model= None):
         '''Image -> string file path 
            colour -> numpy.array eg (255,255,255)
            changecolor -> numpy.array eg (100,100,100)
@@ -51,16 +51,28 @@ class Pixel(object):
         model -> trained classfier
         return -> np.array of image
         '''
-        height =  image.shape[0]
-        widht =  image.shape[1]
+        height =  image.shape[1]
+        widht =  image.shape[0]
         for x in range(width):
             for y in range(height):
                 location =  np.array([x,y,255,255,0])
-                makechange = pixelchange(image,location)
-                if model.predict_class(image) == label:
+                makechange = self.pixelchange(image,location)
+                if model.predict_class(makechange) == label:
                     return makechange
                 
-
+	def targetedpixel(self,image,model,target):
+		'''applying targetted pixel attack
+		image -> numpy array
+		model -> pretrained classifer
+		target -> label of target '''
+		height = image.shape[1]
+		width = image.shape[0]
+		for x in range(width):
+			for y in range(width):
+				location = np.array([x,y,255,255,0])
+				change  = self.pixelchange(image,location)
+				if model.predict_class(image) == target:
+					return change
 
                 
 
