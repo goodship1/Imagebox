@@ -1,3 +1,4 @@
+import cv2 as cv
 class Preprocessing(object):
     '''Downscale image attacks on image neural netorks'''
 
@@ -7,5 +8,7 @@ class Preprocessing(object):
 
     def downscale(self,imageone,imagetwo,targetshape):
         '''down scaling image attacks'''
-        pass
+        image = cv.imread(imageone)
+        image = cv.imread(imagetwo)
+
 
