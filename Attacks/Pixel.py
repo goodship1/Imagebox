@@ -74,10 +74,9 @@ class Pixel(object):
 				if model.predict_class(image) == target:
 					return change
 
-                
-
-
         
 
+        def pixeljittering(self,image,model=None):
+            pass
 
 
