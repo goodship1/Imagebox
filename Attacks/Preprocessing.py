@@ -8,7 +8,11 @@ class Preprocessing(object):
 
 
     def downscale(self,imageone,imagetwo,targetshape=(128,128),model = None):
-        '''down scaling image attacks'''
+        '''down scaling image attacks
+	   imageone -> filepath	
+	   imagetwo -> filepath	
+	   Target_resizing -> tuple
+	   Model -> pretrained classifer'''
         image = cv.imread(imageone)
         target = cv.imread(imagetwo)
         image = cv.resize(target,targetshape)
