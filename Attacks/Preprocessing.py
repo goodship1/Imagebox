@@ -1,4 +1,5 @@
 import cv2 as cv
+import numpy as np
 class Preprocessing(object):
     '''Downscale image attacks on image neural netorks'''
 
@@ -6,9 +7,15 @@ class Preprocessing(object):
         return "Down scaling image attack"
 
 
-    def downscale(self,imageone,imagetwo,targetshape):
+    def downscale(self,imageone,imagetwo,targetshape=(128,128),model = None):
         '''down scaling image attacks'''
         image = cv.imread(imageone)
-        image = cv.imread(imagetwo)
-
+        target = cv.imread(imagetwo)
+        image = cv.resize(target,targetshape)
+        if model ! = None:
+            merged = np.array(image)
+            pred = np.argmax(model.predict(image), axis=-1)
+            return pred
+        else:
+            return image
 
