@@ -21,7 +21,7 @@ class Blur(object):
         '''Function takes an image
         an applies gussian blur to the image
         stakes standard div and image path tuple for kernel size'''
-        check =  self.checkboxfilter(kernel)
+        check =  self.checkboxfilter(kernel_size)
         if check == True:
 			image = cv.imread(image)
 			image =  cv.guassainblur(image,kernel_size,stdiv)
@@ -35,7 +35,7 @@ class Blur(object):
     def averageblur(self,image,box = (3,3),model = None,label = None):
 	   image = cv.imread(image)
 	   if self.checkboxfilter(box):
-		   average_filter = cv.blur(box,(box[0].box[1]))
+		   average_filter = cv.blur(image,(box[0].box[1]))
 		   if model != None and label != None:
 			   average_filter = np.array(average_filter)
 			   pred = np.argmax(model.predict(average_filter), axis=-1)

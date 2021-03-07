@@ -57,7 +57,7 @@ class Pixel(object):
             for y in range(height):
                 location =  np.array([x,y,255,255,0])
                 makechange = self.pixelchange(image,location)
-                if model.predict_class(makechange) == label:
+                if model.predict_class(makechange) != label:
                     return makechange
                 
 	def targetedpixel(self,image,model,target):
