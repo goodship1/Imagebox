@@ -23,7 +23,10 @@ class Patch(object):
 
 
     def samplebasedrbg(self,image,rbg):
-        '''Modfied version of sample based'''
+        '''Modfied version of sample based
+        image -> image file path
+        rbg -> tuple
+        return np.array(image)'''
         patch = self.generatepatch(image,rbg)
         image = Image.open(image)
         width = image.size[0]
@@ -36,7 +39,9 @@ class Patch(object):
 
     def generatesample(self,image,k):
         '''generate image samples
-        image -> user inputted image'''
+        image -> user inputted image
+        k -> int
+        return -> [int]'''
         image = cv.imread(image)
         width = image.shape[0]
         height = image.shape[1]
@@ -89,7 +94,10 @@ class Patch(object):
         return (image,np.array(image))
       
     def generatempapatchs(self,image,rbg =(0,0,0)):
-        '''Generates the MPA patches of mpa attack'''
+        '''Generates the MPA patches of mpa attack
+        image -> file path of image
+        rbg -> tuple
+        return -> image'''
         read = cv.imread(image)
         width = read.shape[0]
         height = read.shape[1]
