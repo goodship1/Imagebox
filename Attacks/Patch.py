@@ -115,3 +115,6 @@ class Patch(object):
           return (image,np.array(image),esp)
         if model != None and greyscale == False:
           return (image,np.array(image),esp)
+    
+    def gradcamsetup(self,image,model):
+        pass
