@@ -1,11 +1,11 @@
 import keras
 import numpy as np
 import tensorflow as tf
-import tensorflow.keras.models import Model
+import tensorflow.keras.models as Model
 import cv2 as cv
 class Gradcam(object):
     
-    def __init__(self,model,layername=None,index):
+    def __init__(self,model,index,layername=None):
         self.model = model
         self.layername = layername
         self.classindex =  index
