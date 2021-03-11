@@ -2,7 +2,7 @@ import keras
 import numpy as np
 import tensorflow as tf
 import tensorflow.keras.models import Model
-
+import cv2 as cv
 class Gradcam(object):
     
     def __init__(self,model,layername=None,index):
@@ -50,6 +50,24 @@ class Gradcam(object):
         convert = convcast * castgrad * grad
         conv = conv[0]
         convert = convert[0]
+        weight = tf.reduce_mean(convert, axis=(0,1))
+        cam = tf.reduce_sum(tf.multiply(weights,conv),axis=1)
+        (width,height) =(image.shape[2],image.shape[1])
+        heat = cv.resize(cam.numpy(),(w,h))
+        num = heat - np.min(heat)
+        dom = (heat.max() - heatmap.min())+epsilon
+        heat = num / dom
+        heat = (heat * 255).astype("uint8")
+        return heat
+
+    def overlay(self,heat,image,alpha=0.5,color=cv.COLORMAP_VIRDIS):
+        heat = cv.applyColorMap(heat,color)
+        out = cv.addWeighted(image,alpha,heat,1-alpha,0)
+        return(heat,out)
+
+
+
+
 
 
 
