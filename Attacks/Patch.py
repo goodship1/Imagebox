@@ -105,7 +105,8 @@ class Patch(object):
         im = Image.new('RGB',(1, random_height), rbg)
         return im
     
-
+    def keyfeatureextraction(self,image):
+        pass
 
     def MPA(self,image,model = None,greyscale = True,samples = 3):
         patch = self.generatempapatches(image)
