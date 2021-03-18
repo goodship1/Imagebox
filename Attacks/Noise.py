@@ -11,6 +11,11 @@ class Noise(object):
         return "A class for adding noise to images"
 
     def guassian(self,image,model=None,label=None):
+            '''Image -> image file  path
+               model -> pre-trained classfier
+               label -> label of image
+               return -> pred or image
+               '''
 	       image = cv.imread(image)
 	       guassian  = np.random.normal(0,mu,image.size)
 	       guassian = gussian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')

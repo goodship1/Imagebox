@@ -10,7 +10,7 @@ class Contrast(object):
         if constrast <0:
             return abs(contrast)
     
-    def constrast(self,image,levelofconstrast,model=None):
+    def contrast(self,image,levelofconstrast,model=None):
         if levelofcontrast <0:
             levelofcontrast = self.returnpostive(levelofcontrast)
         alpha = levelofcontrast

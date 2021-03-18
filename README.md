@@ -1,11 +1,11 @@
 # Imagebox
 
-Advarsarial tool-box for attack images in the 2D space
+Advarsarial tool-box for attack images in the 2D space. Which contains a number of way.
 
-# Dependcies 
+# Dependencies 
 
 - Numpy 
-- Open-cv 
+- Open-CV 
 - tensorflow >= 2.0
 
 # Installation
