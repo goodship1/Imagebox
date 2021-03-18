@@ -76,7 +76,19 @@ class Pixel(object):
 
         
 
-        def pixeljittering(self,image,model=None):
-            pass
+        def pixeljittering(self,image,jitter,model=None,label=None):
+            '''Image -> file path
+               jitter -> int
+               model -> pre-trained classfier
+               label -> int
+            '''
+            image = imread(image)
+            width = image.shape[0]
+            height = image.shape[1]
+            colour =  image.shape[2]
+            noise = np.array(0,jitter,(width,height))
+
+
+
 
 
