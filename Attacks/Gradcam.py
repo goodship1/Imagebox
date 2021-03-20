@@ -1,80 +1,79 @@
-import keras
-import numpy as np
+from tensorflow.keras.models import Model
 import tensorflow as tf
-import tensorflow.keras.models as Model
-import cv2 as cv
-class Gradcam(object):
-    
-    def __init__(self,model,index,layername=None):
+import numpy as np
+import cv2
+
+class Gradcam:
+    def __init__(self, model, classIdx, layerName=None):
+        # store the model, the class index used to measure the class
+        # activation map, and the layer to be used when visualizing
+        # the class activation map
         self.model = model
-        self.layername = layername
-        self.classindex =  index
-        self.tape = tf.GradientTape()
-        if self.checklayername == None:
-            self.getlastlayer()
-    
-    def __str__(self):
-        return "Grad cam implementation"
-    
-    def layererrorhandling(self):
-        return "can not find 4D space"
+        self.classIdx = classIdx
+        self.layerName = layerName
+        # if the layer name is None, attempt to automatically find
+        # the target output layer
+        if self.layerName is None:
+            self.layerName = self.find_target_layer()
 
-    def layernumbercheck(self,layers):
-        return len(layers) ==4
-
-    def checklayername(self):
-        '''check if layer is not none'''
-        return self.layername == None
-
-    def getlastlayer(self):
-        '''Finding the last layer'''
-        reverse =  reversed(self.model.layers)#revesers
-        for layer in reverse:
-            if self.layernumbercheck(layer.output_shape) == True:
+    def find_target_layer(self):
+        # attempt to find the final convolutional layer in the network
+        # by looping over the layers of the network in reverse order
+        for layer in reversed(self.model.layers):
+            # check to see if the layer has a 4D output
+            if len(layer.output_shape) == 4:
                 return layer.name
-            else:
-                print(self.layererrorhandling())
+        # otherwise, we could not find a 4D layer so the GradCAM
+        # algorithm cannot be applied
+        raise ValueError("Could not find 4D layer. Cannot apply GradCAM.")
+
+
+    def compute_heatmap(self, image, eps=1e-8):
+        gradModel = Model(
+            inputs=[self.model.inputs],
+            outputs=[self.model.get_layer(self.layerName).output, self.model.output])
+
+        # record operations for automatic differentiation
+        with tf.GradientTape() as tape:
+            # cast the image tensor to a float-32 data type, pass the
+            # image through the gradient model, and grab the loss
+            # associated with the specific class index
+            inputs = tf.cast(image, tf.float32)
+            (convOutputs, predictions) = gradModel(inputs)
+            
+            loss = predictions[:, tf.argmax(predictions[0])]
     
-    def heatmap(self,image,epsilon = 1e-8):
-        inputs = [self.model.inputs]
-        output_1= self.model.get_layer(self.layername).output
-        output_2 = self.model.output
-        grad = Model(inputs,output_1,output_2)
-        with self.tape  as tape:
-            inputs = tf.cast(image,tf.float32)
-            (conv,pred) = grad(inputs)
-            loss = pred[:,tf.argmax(pred[0])]
-        gradient = tape.gradient(loss,conv)
-        convcast = tf.cast(conv >0,"float32")
-        gradcast = tf.cast(grad>0,"float32")
-        convert = convcast * castgrad * grad
-        conv = conv[0]
-        convert = convert[0]
-        weight = tf.reduce_mean(convert, axis=(0,1))
-        cam = tf.reduce_sum(tf.multiply(weights,conv),axis=1)
-        (width,height) =(image.shape[2],image.shape[1])
-        heat = cv.resize(cam.numpy(),(w,h))
-        num = heat - np.min(heat)
-        dom = (heat.max() - heatmap.min())+epsilon
-        heat = num / dom
-        heat = (heat * 255).astype("uint8")
-        return heat
+        
+        grads = tape.gradient(loss, convOutputs)
 
-    def overlay(self,heat,image,alpha=0.5,color=cv.COLORMAP_VIRDIS):
-        heat = cv.applyColorMap(heat,color)
-        out = cv.addWeighted(image,alpha,heat,1-alpha,0)
-        return(heat,out)
-
-
-
-
-
-
-
-
-
-
-
-
+        castConvOutputs = tf.cast(convOutputs > 0, "float32")
+        castGrads = tf.cast(grads > 0, "float32")
+        guidedGrads = castConvOutputs * castGrads * grads
+        
+        convOutputs = convOutputs[0]
+        guidedGrads = guidedGrads[0]
 
         
+        weights = tf.reduce_mean(guidedGrads, axis=(0, 1))
+        cam = tf.reduce_sum(tf.multiply(weights, convOutputs), axis=-1)
+
+        
+        (w, h) = (image.shape[2], image.shape[1])
+        heatmap = cv2.resize(cam.numpy(), (w, h))
+       
+        numer = heatmap - np.min(heatmap)
+        denom = (heatmap.max() - heatmap.min()) + eps
+        heatmap = numer / denom
+        heatmap = (heatmap * 255).astype("uint8")
+        # return the resulting heatmap to the calling function
+        return heatmap
+
+    def overlay_heatmap(self, heatmap, image, alpha=0.5,
+                        colormap=cv2.COLORMAP_VIRIDIS):
+        # apply the supplied color map to the heatmap and then
+        # overlay the heatmap on the input image
+        heatmap = cv2.applyColorMap(heatmap, colormap)
+        output = cv2.addWeighted(image, alpha, heatmap, 1 - alpha, 0)
+        # return a 2-tuple of the color mapped heatmap and the output,
+        # overlaid image
+        return (heatmap, output)
