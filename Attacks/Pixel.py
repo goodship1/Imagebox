@@ -76,17 +76,35 @@ class Pixel(object):
 
         
 
-        def pixeljittering(self,image,jitter,model=None,label=None):
+        def pixeljittering(self,image,jitter,shift = None,model=None,label=None):
             '''Image -> file path
                jitter -> int
                model -> pre-trained classfier
                label -> int
             '''
-            image = imread(image)
-            width = image.shape[0]
-            height = image.shape[1]
-            colour =  image.shape[2]
-            noise = np.array(0,jitter,(width,height))
+            if shift == None:
+                 image = cv.imread(image)
+                 width = image.shape[0]
+                 height = image.shape[1]
+                 colour =  image.shape[2]
+                 noise = np.random.randint(0,jitter,(width,height))
+                 zeros = np.zeros_like(image)
+                 zeros[:,:,1] = noise
+                 add =  cv.add(image,noise)
+                 if model == None  and label == None:
+                     return add
+                 elif model != None:
+                     convert =  np.array(add)
+                     pred  = model.predict(convert)
+                     return pred
+            if shift!=None:
+                image = cv.imread(image)
+
+                
+
+
+
+
 
 
 
