@@ -98,7 +98,23 @@ class Pixel(object):
                      pred  = model.predict(convert)
                      return pred
             if shift!=None:
-                image = cv.imread(image)
+                    image = cv.imread(image)
+                    red = image[:,:,0]
+                    blue = image[:,;,1]
+                    green = image[:,;,2]
+                    shift_r = np.roll(red,shift,axis=0)
+                    shift_g = np.roll(green,shift,axis=1)
+                    shift_b = np.roll(blue,shift,axis = 0)
+                    pixel_shift = np.dstack((shift_r,shift_g,shift_b))
+                    if model == None:
+                        return pixel_shift
+                    elif model != None:
+                        convert = np.array(pixel_shift)
+                        pred = model.predict(convert)
+                        return pred
+
+
+
 
                 
 
