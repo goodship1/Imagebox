@@ -8,19 +8,13 @@ class Training(object):
     def __init__(self):
         self.noise = Noise()
         self.contrast = Contrast()
+        self.rotate = Rotations()
+        self.fgsm = Gradient()
+        
     
-   def _gussianfile(self,image,filepath):
-       '''adds gussian noise images to file path'''
-       pass
-
-   def _saltpepperfile(self,image,filepath):
-       pass
-
-   def _rotationlefttrainingfile(image,filepath):
-       pass
-
-   def _rotationrighttrainingfile(image,filepath):
-       pass
+   def writetotrainingpath(self,image,filepath):
+        try:
+            
 
    def gussianTraining(self,image,filePath,numberofsamples,model,label):
        '''function for generating guassian noise
@@ -44,6 +38,13 @@ class Training(object):
       pass
 
   def saltpeppertraining(self,image,filepath,numberofsamples,model,label):
+        '''
+        image -> image file path
+        filepath -> training absolute file path
+        numberofsamples -> total number of noise samples wish to generate
+        model -> pretrained classifer
+        label -> correct training label
+        '''
         samples_added =  0
         for x in numberofsamples:
             speckle_noise =  self.noise.Speckle(image)
@@ -53,10 +54,36 @@ class Training(object):
         return "number of samples added" + " " + str(samples_added) +" " + "to file path" +" " + filePath
         
         
+ def continousclockwise(self,image,filepath,radians,model,label):
+    if radians == 360:
+        for x in range(1,360):
+            images =  self.rotated.clockwie(image,x)
+            convert = np.array(images)
+            
+    for x in radians:
+        rotated  = self.rotations.clockwise(image,x)
+        convert =  np.array(rotated)
+        if model.predict(convert) == label:
+            self.writetofilepath(rotated)
+            
             
 
- def rotationtrainingleft(self,image,filepath,radians):
-     '''rotates image'''
+ def rotationtrainingleftsingle(self,image,filepath,radians,model,label):
+     '''rotates at sperfic rotation location
+        image -> image file path
+        filepath -> training file path
+        radians -> int
+        model -> pretained classfier
+        label -> int
+        '''
+        rotated_image=self.rotate.clockwise(image,radians)
+        convert =  np.array(rotated_image)
+        if model.predict(convert) == label:
+            
+            self.writetotrainingpath(image,filepath)
+        
+        
+        
 
  def fgsmtraining(image,label,filepath,ep):
      pass
