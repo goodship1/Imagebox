@@ -11,14 +11,10 @@ class Noise(object):
         return "A class for adding noise to images"
 
     def guassian(self,image,model=None,label=None):
-            '''Image -> image file  path
-               model -> pre-trained classfier
-               label -> label of image
-               return -> pred or image
-               '''
+           
 	       image = cv.imread(image)
-	       guassian  = np.random.normal(0,mu,image.size)
-	       guassian = gussian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+	       guassian  = np.random.normal(0,1,image.size)
+	       guassian = guassian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
 	       noise_image = cv.add(image,guassian)
 	       if model != None and label !=None:
 			   pred = np.argmax(model.predict(noise_image), axis=-1)
@@ -65,7 +61,7 @@ class Noise(object):
     def speckle(self,image,model=None,label=None):
         
         	image = cv.imread(image)
-        	speckle = np.random(0,1,image.size)
+        	speckle = np.random.normal(0,1,image.size)
        		speckle = speckle.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
         	image =  image + image
         	noise_image  = image * speckle
