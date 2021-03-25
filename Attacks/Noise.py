@@ -7,7 +7,7 @@ class Noise(object):
     noise to images'''
 
 
-    def __str__(self):
+    def __str__(self):  
         return "A class for adding noise to images"
 
     def guassian(self,image,model=None,label=None):
@@ -17,23 +17,23 @@ class Noise(object):
 	       guassian = guassian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
 	       noise_image = cv.add(image,guassian)
 	       if model != None and label !=None:
-			   pred = np.argmax(model.predict(noise_image), axis=-1)
-			   return pred
-	       elif model != None:
-			   return noise_image
+			        pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+			        return (pred,noise_image)
+	       elif model == None:
+			        return noise_image
 	       
 		
 
     def gammanoise(self,image,model=None,label=None):
-			image = cv.imread(image)
-			gamma = np.random.gamma(100,1,image.size)
-			gamma =  gamma.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
-			noise_image =  cv.add(image,gamma)
-			if model != None and label !=None:
-				pred = np.argmax(model.predict(noise_image), axis=-1)
-				return pred
-			elif model == None:
-				return noise_image
+			    image = cv.imread(image)
+			    gamma = np.random.gamma(1,1000,image.size)
+			    gamma =  gamma.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+			    noise_image =  cv.add(image,gamma)
+			    if model != None and label !=None:
+				      pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])), axis=-1)
+				      return (pred,noise_image)
+			    elif model == None:
+				      return noise_image
 
 
     def rayleighnoise(self,image,model = None,label=None):
@@ -42,21 +42,21 @@ class Noise(object):
         	 rayleigh =  rayleigh.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
         	 noise  = cv.add(image,rayleigh)
         	 if model != None and label != None:
-				 pred = np.argmax(model.predict(noise), axis=-1)
-				 return pred
+				        pred = np.argmax(model.predict(noise.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+				        return (pred,noise)
         	 elif model == None:
-				 return noise
+				        return noise
     
     def expeontialnoise(self,image,model=None,label=None):
-			image = cv.imread(image)
-			exp = np.random.exponential(1,image.size)
-			exp = exp.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
-			noise =  cv.add(image,exp)
-			if model !=None and label!=None:
-				pred = np.argmax(model.predict(average_filter), axis=-1)
-				return pred
-			else:
-				return noise
+			    image = cv.imread(image)
+			    exp = np.random.exponential(1000,image.size)
+			    exp = exp.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+			    noise =  cv.add(image,exp)
+			    if model !=None and label!=None:
+				        pred = np.argmax(model.predict(noise.reshape(1,image,shape[0],image.shape[1],image.shape[1])))
+				        return (pred,noise)
+			    else:
+				      return noise
     
     def speckle(self,image,model=None,label=None):
         
@@ -66,21 +66,21 @@ class Noise(object):
         	image =  image + image
         	noise_image  = image * speckle
         	if model != None and label != None:
-				pred = np.argmax(model.predict(noise_image), axis=-1)
-				return pred
-		elif model != None:
-				return noise_image
+				      pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+				      return (pred,noise_image)
+                elif model == None:
+					return noise_image
     
     def possionnoise(self,image,model =None,label=None):
-			image =  cv.imread(image)
-			pos = np.random.poisson(10,image.size)
-			pos = pos.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
-			noise =  cv.add(image,pos)
-			if model != None and label!= None:
-				pred = np.argmax(model.predict(noise), axis=-1)
-				return pred
-			elif model == None:
-				return noise
+			  image =  cv.imread(image)
+			  pos = np.random.poisson(1000,image.size)
+			  pos = pos.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+			  noise =  cv.add(image,pos)
+			  if model != None and label!= None:
+				    pred = np.argmax(model.predict(noise.reshape(1,image.shape[0],image.shape[1],image.shape[2])), axis=-1)
+				    return (pred,noise)
+			  elif model == None:
+				    return noise
     
     def browiannoise(self,image,scale,mean = 1,model=None,label=None):
                  
@@ -89,12 +89,7 @@ class Noise(object):
                  browian = np.random.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
                  noise = cv.add(image,browian)
                  if model!=None and label !=None:
-					 noise = np.array(noise)
-					 pred = np.argmax(model.predict(noise), axis=-1)
-					 return pred
+					              pred = np.argmax(model.predict(noise.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+					              return pred
                  elif model == None:
-					 return noise
-			     
-	      	
-
-   
+					              return noise
