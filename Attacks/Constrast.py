@@ -7,21 +7,18 @@ class Contrast(object):
         return "functions for adding constrast"
     
     def returnpostive(self,contrast):
-        if constrast <0:
+        if contrast <0:
             return abs(contrast)
     
-    def contrast(self,image,levelofconstrast,model=None):
-        if levelofcontrast <0:
+    def contrast(self,image,levelofcontrast,model=None):
+        if levelofcontrast<=0:
             levelofcontrast = self.returnpostive(levelofcontrast)
         alpha = levelofcontrast
         beta = 0
-        convertimage = cv.imread(image)
-        addconstrast = cv.convertScaleAbs(image,alpha = alpha, beta = beta)
+        image = cv.imread(image)
+        addcontrast = cv.convertScaleAbs(image,alpha = alpha, beta = beta)
         if model != None:
-            covnert_to_numpy = np.array(image)
-            pred =  model.predict(image)
-            return pred
+            pred =  model.predict(addcontrast.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+            return (pred,addcontrast)
         elif model == None:
             return addconstrast
-
-
