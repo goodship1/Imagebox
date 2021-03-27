@@ -7,7 +7,7 @@ class Preprocessing(object):
         return "Down scaling image attack"
 
 
-    def downscale(self,imageone,imagetwo,targetshape=(128,128),model = None):
+    def downscale(self,imageone,imagetwo,targetshape=(128,128),model = None,label = None):
         '''down scaling image attacks
 	   imageone -> filepath	
 	   imagetwo -> filepath	
@@ -17,8 +17,7 @@ class Preprocessing(object):
         target = cv.imread(imagetwo)
         image = cv.resize(target,targetshape)
         if model ! = None:
-            merged = np.array(image)
-            pred = np.argmax(model.predict(image), axis=-1)
+            pred = np.argmax(model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
             return pred
         else:
             return image

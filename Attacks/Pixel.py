@@ -44,7 +44,7 @@ class Pixel(object):
                     read.putpixel((x,y),colourchange)#changes the pixel
         return np.array(read)
 
-    def onePixel(self,image,label,model):
+    def onePixel(self,image,label,model=None):
         '''Applying one pixel change to an image
         image -> image of numpy array format preprocssed
         label -> INT
@@ -52,13 +52,14 @@ class Pixel(object):
         return -> np.array of image
         '''
         height =  image.shape[1]
-        widht =  image.shape[0]
+        width =  image.shape[0]
         for x in range(width):
             for y in range(height):
                 location =  np.array([x,y,255,255,0])
-                makechange = self.pixelchange(image,location)
-                if model.predict_class(makechange) != label:
-                    return makechange
+                makechange = self.pixelchange(location,image)[0]
+                if np.argmax(model.predict(makechange.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) != label:
+                  pred = np.argmax(model.predict(makechange.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+                  return (makechange,pred,location)
                 
 	def targetedpixel(self,image,model,target):
 		'''applying targetted pixel attack
@@ -70,9 +71,10 @@ class Pixel(object):
 		for x in range(width):
 			for y in range(width):
 				location = np.array([x,y,255,255,0])
-				change  = self.pixelchange(image,location)
-				if model.predict_class(image) == target:
-					return change
+				change  = self.pixelchange(image,location)[0]
+				if np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == target:
+					pred = np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+					return (change,pred,location)
 
         
 
@@ -94,14 +96,13 @@ class Pixel(object):
                  if model == None  and label == None:
                      return add
                  elif model != None:
-                     convert =  np.array(add)
-                     pred  = model.predict(convert)
-                     return pred
+                     pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+                     return (pred,noise)
             if shift!=None:
                     image = cv.imread(image)
                     red = image[:,:,0]
-                    blue = image[:,;,1]
-                    green = image[:,;,2]
+                    blue = image[:,:,1]
+                    green = image[:,:,2]
                     shift_r = np.roll(red,shift,axis=0)
                     shift_g = np.roll(green,shift,axis=1)
                     shift_b = np.roll(blue,shift,axis = 0)
