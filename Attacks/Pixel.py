@@ -69,7 +69,7 @@ class Pixel(object):
 		height = image.shape[1]
 		width = image.shape[0]
 		for x in range(width):
-			for y in range(width):
+			for y in range(height):
 				location = np.array([x,y,255,255,0])
 				change  = self.pixelchange(image,location)[0]
 				if np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == target:
