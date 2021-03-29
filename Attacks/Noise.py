@@ -1,6 +1,6 @@
 import numpy as np
 import cv2 as cv
-#import keras
+import keras
 
 class Noise(object):
     '''Class for adding different types of
