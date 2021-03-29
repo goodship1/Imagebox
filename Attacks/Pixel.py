@@ -35,14 +35,16 @@ class Pixel(object):
            return -> numpy.arry of image
            '''
         read =  Image.open(image)#reads the user inputted image
-        width =  read[0]#stores the width of the image
-        height = read[1]#stores the height of the image
+       	width,height = read.size
         for x in range(width):
             for y in range(height):
                 current =  read.getpixel((x,y))#reads the current pixel rbg value
                 if current == color:#checks if rbg colour is the one to be changed
                     read.putpixel((x,y),colourchange)#changes the pixel
-        return np.array(read)
+	if model != None:
+		convert = np.array(read)
+		pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0].convert.shape[1],convert.shape[2])))
+		return (pred,convert)
 
     def onePixel(self,image,label,model=None):
         '''Applying one pixel change to an image
