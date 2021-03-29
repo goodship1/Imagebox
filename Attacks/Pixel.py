@@ -23,7 +23,7 @@ class Pixel(object):
         for x,image in zip(locations ,imgs):
             pixels = np.split(x, len(x) // 5)
             for pixel in pixels:
-                x_pos, y_pos, rgb = pixel
+                x_pos, y_pos,*rgb = pixel
                 image[x_pos, y_pos] = rgb
         return imgs
   
