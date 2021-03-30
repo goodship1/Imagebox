@@ -23,7 +23,7 @@ class Pixel(object):
         for x,image in zip(locations ,imgs):
             pixels = np.split(x, len(x) // 5)
             for pixel in pixels:
-                x_pos, y_pos,*rgb = pixel
+                x_pos, y_pos, rgb = pixel
                 image[x_pos, y_pos] = rgb
         return imgs
   
@@ -80,45 +80,36 @@ class Pixel(object):
 
         
 
-        def pixeljittering(self,image,jitter,shift = None,model=None,label=None):
-            '''Image -> file path
-               jitter -> int
-               model -> pre-trained classfier
-               label -> int
-            '''
-            if shift == None:
-                 image = cv.imread(image)
-                 width = image.shape[0]
-                 height = image.shape[1]
-                 colour =  image.shape[2]
-                 noise = np.random.randint(0,jitter,(width,height))
-                 zeros = np.zeros_like(image)
-                 zeros[:,:,1] = noise
-                 add =  cv.add(image,noise)
-                 if model == None  and label == None:
-                     return add
-                 elif model != None:
-                     pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-                     return (pred,noise)
-            if shift!=None:
-                    image = cv.imread(image)
-                    red = image[:,:,0]
-                    blue = image[:,:,1]
-                    green = image[:,:,2]
-                    shift_r = np.roll(red,shift,axis=0)
-                    shift_g = np.roll(green,shift,axis=1)
-                    shift_b = np.roll(blue,shift,axis = 0)
-                    pixel_shift = np.dstack((shift_r,shift_g,shift_b))
-                    if model == None:
-                        return pixel_shift
-                    elif model != None:
-                        convert = np.array(pixel_shift)
-                        pred = model.predict(convert)
-                        return pred
-
-
-
-
+        def pixeljitter(self,image,jitter,model=None):
+            
+				image = cv.imread(image)
+				width = image.shape[0]
+				height = image.shape[1]
+				colour =  image.shape[2]
+				noise = np.random.randint(0,jitter,(width,height))
+				zeros = np.zeros_like(image)
+				zeros[:,:,1] = noise
+				add =  cv.add(image,noise)
+				if model == None:
+					return add
+				elif model != None:
+						pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+						return (pred,add)
+       
+        def pixelshift(self,image,shift,model = None):
+		   image = cv.imread(image)
+		   red = image[:,:,0]
+		   blue = image[:,:,1]
+		   green = image[:,:,2]
+		   shift_r = np.roll(red,shift,axis=0)
+		   shift_g = np.roll(green,shift,axis=1)
+		   shift_b = np.roll(blue,shift,axis = 0)
+		   pixel_shift = np.dstack((shift_r,shift_g,shift_b))
+		   if model != None:
+			   pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			   return(pred,shift)
+		   else:
+				return pixel_shift
                 
 
 

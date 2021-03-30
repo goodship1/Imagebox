@@ -1,12 +1,14 @@
 from PIL import Image
 import random
 import cv2 as cv
+#from Imagebox.Attacks import gradcam
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
 
     def __str__(self):
         return "Advarsarial patch's"
     
+   
    
     def generatepatch(self,image ,rbg = (0,0,0)):
         '''Helper function to generate black patch
@@ -22,7 +24,7 @@ class Patch(object):
         return im
 
 
-    def samplebasedrbg(self,image,rbg):
+    def samplebasedrbg(self,image,rbg,model = None):
         '''Modfied version of sample based
         image -> image file path
         rbg -> tuple
@@ -34,8 +36,12 @@ class Patch(object):
         random_width = random.randint(1,width)-1
         random_height = random.randint(1,height)-1
         image.paste(patch,(random_width,random_height))
-        return (image,np.array(image))
-  
+        if model == None:
+			return(image,np.array(image))
+        if model != None:
+			convert = np.array(image)
+			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			return (pred,convert)
 
     def generatesample(self,image,k):
         '''generate image samples
@@ -75,11 +81,15 @@ class Patch(object):
         return (image,np.array(image),esp)
       if model != None and classfaction == "binary":
         im =  np.array(image)
-        return np.argmax(model.predict(im), axis=-1)
+        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]), axis=-1))
+        return pred
       if model !=None and classfaction == "Multi":
-        return (model.predict(im) > 0.5).astype("int32")
+		  im = np.array(image)
+		  pred = model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32")
+		  return pred
+  
 
-    def samplebased(self,image):
+    def samplebased(self,image,model=None):
         '''Sample based patch attack gray scale
         image -> user image
         return -> user patch image
@@ -91,7 +101,12 @@ class Patch(object):
         random_width = random.randint(1,width)
         random_height = random.randint(1,height)
         image.paste(patch,(random_width,random_height))
-        return (image,np.array(image))
+        if model == None:
+				return (image,np.array(image))
+        if model != None:
+			convert =  np.array(image)
+			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			return (pred,convert)
       
     def generatempapatchs(self,image,rbg =(0,0,0)):
         '''Generates the MPA patches of mpa attack
@@ -122,8 +137,12 @@ class Patch(object):
             image.paste(patch,(e))
         if model == None and greyscale == True:
           return (image,np.array(image),esp)
-        if model != None and greyscale == False:
-          return (image,np.array(image),esp)
+        if model != None and greyscale == True:
+			convert = np.array(image)
+			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			return (pred,convert,esp)
+		
+          
     
     def gradcamsetup(self,image,model):
         pass
