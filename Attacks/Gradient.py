@@ -1,18 +1,17 @@
-import error as e
 import tensorflow as tf
+import numpy as np
 class Gradiant(object):
   """FGSM Attack implemention"""
 
   def __init__(self):
     self.tape = tf.GradientTape()
     self.loss = tf.keras.losses.CategoricalCrossentropy()
-    self.error =  Error()
   
   def __str__(self):
     return "Gradient class for the implementation of the gradiant attacks"
   
   def errorhandling(self):
-    return self.error.FGSMerror()
+    return " error"
 
   def FGSM(self,image,label,model):
     """FGSM attack on images"""
@@ -25,4 +24,18 @@ class Gradiant(object):
       return signed
     except:
       print(self.errorhandling())
+
+ def applyfgsm(self,image,esp,label,model):
+     signed = self.FGSM(image,label,model)
+     results = []
+     for x in esp:
+        image = image + x * signed
+        results.append(image)
+
+    for samples  in results:
+        pred = model.predict(samples.reshape(1,samples.shape[0],samples.shape[1],samples.shape[2]))
+        if np.argmax(pred) != label:
+           return pred
+
+
 
