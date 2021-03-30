@@ -25,10 +25,9 @@ class Blur(object):
         if check == True:
 			image = cv.imread(image)
 			image =  cv.guassainblur(image,kernel_size,stdiv)
-			if model != None and label != None:
-					image =  np.array(image)
-					pred = np.argmax(model.predict(image), axis=-1)
-					return pred
+			if model != None:
+					pred = np.argmax(model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[1]), axis=-1))
+					return (pred,image,stdiv,kernel_size)
 			else:
 				return image
 			
@@ -36,22 +35,20 @@ class Blur(object):
 	   image = cv.imread(image)
 	   if self.checkboxfilter(box):
 		   average_filter = cv.blur(image,(box[0].box[1]))
-		   if model != None and label != None:
-			   average_filter = np.array(average_filter)
-			   pred = np.argmax(model.predict(average_filter), axis=-1)
-			   return pred
+		   if model != None:
+			   pred = np.argmax(model.predict(average_filter.reshape(1,iamge.shape[0],image.shape[1],image.shape[2])), axis=-1)
+			   return (pred,box)
 		   else:
 			   return average_filter
     
     
-    def mednblur(self,image,percent,model=None):
+    def medianblur(self,image,percent,model=None):
 		if self.checkpostive(percent):
 				image = cv.imread(image)
 				median = cv.medianblur(image,percent)
 				if model!= None:
-					median = np.array(median)
-					pred = np.argmax(model.predict(median), axis=-1)
-					return pred
+					pred = np.argmax(model.predict(median.reshape(1,median.shape[0],median.shape[1],median.shape[2])), axis=-1)
+					return (pred,percent)
 				else:
 					return median
 	
