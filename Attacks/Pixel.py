@@ -107,7 +107,7 @@ class Pixel(object):
 		   pixel_shift = np.dstack((shift_r,shift_g,shift_b))
 		   if model != None:
 			   pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-			   return(pred,shift)
+			   return(pred,pixel_shift)
 		   else:
 				return pixel_shift
                 
