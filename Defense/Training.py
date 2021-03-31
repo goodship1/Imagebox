@@ -1,4 +1,12 @@
-from attacks import noise,constrast
+from Imagebox.Attacks import Noise
+from Imagebox.Attacks import Contrast
+from Imagebox.Attacks import Gradient
+from Imagebox.Attacks import Blur
+from Imagebox.Attacks import Rotations
+import numpy as np
+import keras
+import PIL
+from PIL import Image 
 
 class Training(object):
     
@@ -10,21 +18,26 @@ class Training(object):
         self.contrast = Contrast()
         self.rotate = Rotations()
         self.fgsm = Gradient()
+        self.blur = Blur()
         
     
    def writetotrainingpath(self,image,filepath):
-        try:
-            
-
+        input = input("enter file name")
+        image = PIL.Image.fromarray(image, "RGB")
+        image.save(input)
+        
+        
+   def contrasttraining(self,image,filepath,model,label):
+         pass
+   
    def gussianTraining(self,image,filePath,numberofsamples,model,label):
        '''function for generating guassian noise
        images for training'''
         samples_added = 0
         for x in range(numberofsamples):
              gussian_image = self.noise.Gussiannoise(image)
-             convert =  np.array(gussian_image)
-             if model.predict(convert) == label:
-                    self.gussianfile(image,file_path)
+             if np.argmax(model.predict(gussian.image.reshape(1,image.shape[0],image.shape[1],image.shapep[2]))) == label:
+                    self.writetotrainingpath(image,file_path)
                     samples_added +=1
          return "number of samples added" + " " + str(samples_added) +" " + "to file path" +" " + filePath
     
@@ -48,24 +61,20 @@ class Training(object):
         samples_added =  0
         for x in numberofsamples:
             speckle_noise =  self.noise.Speckle(image)
-            if model.predict(speckle_noise) == label:
-                self.speckle_filepath(image,filepath)
+            if np.argmax(model.predict(speckle_noise.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == label:
+                self.writetotrainingpath(image,filepath)
                 samples_added +=1
         return "number of samples added" + " " + str(samples_added) +" " + "to file path" +" " + filePath
         
         
  def continousclockwise(self,image,filepath,radians,model,label):
-    if radians == 360:
-        for x in range(1,360):
-            images =  self.rotated.clockwie(image,x)
-            convert = np.array(images)
-            
-    for x in radians:
-        rotated  = self.rotations.clockwise(image,x)
-        convert =  np.array(rotated)
-        if model.predict(convert) == label:
-            self.writetofilepath(rotated)
-            
+    samples = 0
+    for x in range(radians):
+        self.rotation.clockwise(image,x)
+        if np.argmax(model.predict(1,image.shape[0],image.shape[1],image.shape[2]))) == label:
+            samples +=1
+            self.writetotrainingpath(image,filepath)
+    return "number of samples generated" + " " + samples
             
 
  def rotationtrainingleftsingle(self,image,filepath,radians,model,label):
@@ -76,13 +85,11 @@ class Training(object):
         model -> pretained classfier
         label -> int
         '''
-        rotated_image=self.rotate.clockwise(image,radians)
-        convert =  np.array(rotated_image)
-        if model.predict(convert) == label:
-            
+        rot = self.rotations.clockwise(image,radians)
+        if np.argmax(model.predict(1,rot.shape[0],rot.shape[1],rot.shape[2]))) == label:
             self.writetotrainingpath(image,filepath)
-        
-        
+            
+      
         
 
  def fgsmtraining(image,label,filepath,ep):
