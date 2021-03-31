@@ -121,8 +121,8 @@ class Patch(object):
         im = Image.new('RGB',(1, random_height), rbg)
         return im
 	
-	def loadtexture(self):
-			pass
+    def loadtexture(self):
+	    pass
     
     def keyfeatureextraction(self,image):
         pass
@@ -155,5 +155,7 @@ class Patch(object):
         pred = model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
         pred =  np.argmax(pred)
         layers = []
+        for x in range(model.layers):
+
         
         

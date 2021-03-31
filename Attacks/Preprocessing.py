@@ -18,7 +18,7 @@ class Preprocessing(object):
         image = cv.resize(target,targetshape)
         if model ! = None:
             pred = np.argmax(model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-            return pred
+            return (pred,image,imagetwo)
         else:
             return image
 
