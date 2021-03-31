@@ -89,7 +89,7 @@ class Pixel(object):
 				noise = np.random.randint(0,jitter,(width,height))
 				zeros = np.zeros_like(image)
 				zeros[:,:,1] = noise
-				add =  cv.add(image,noise)
+				add =  cv.add(image,zeros)
 				if model == None:
 					return add
 				elif model != None:
@@ -106,7 +106,7 @@ class Pixel(object):
 		   shift_b = np.roll(blue,shift,axis = 0)
 		   pixel_shift = np.dstack((shift_r,shift_g,shift_b))
 		   if model != None:
-			   pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			   pred = model.predict(pixel_shift.reshape(1,pixel_shift.shape[0],pixel_shift.shape[1],pixel_shift.shape[2]))
 			   return(pred,pixel_shift)
 		   else:
 				return pixel_shift
