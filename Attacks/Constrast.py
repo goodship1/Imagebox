@@ -18,7 +18,7 @@ class Contrast(object):
         image = cv.imread(image)
         addcontrast = cv.convertScaleAbs(image,alpha = alpha, beta = beta)
         if model != None:
-            pred =  model.predict(addcontrast.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+            pred =  np.argmax(model.predict(addcontrast.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
             return (pred,addcontrast)
         elif model == None:
             return addconstrast
