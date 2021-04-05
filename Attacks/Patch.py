@@ -71,7 +71,7 @@ class Patch(object):
             index+=1
         return res
 
-    def HPA(self,image,model=None,classfaction =None,label = None,samples =3):
+    def HPA(self,image,model=None,classfaction =None,samples =3):
       esp =  self.generatesample(image,samples)
       patch = self.generatepatch(image)
       image = Image.open(image)
@@ -79,7 +79,7 @@ class Patch(object):
         image.paste(patch,(e))
       attack_info = (image,np.array(image),esp)
       if model == None:
-        return (image,np.array(image),esp)
+        return (image,np.array(image),egsp)
       if model != None and classfaction == "binary":
         im =  np.array(image)
         pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]), axis=-1))
@@ -148,6 +148,11 @@ class Patch(object):
 			convert = np.array(image)
 			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
 			return (pred,convert,esp)
+        if model !=None and greyscale == False:
+			convert = np.array(image)
+			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+			return (pred,convert,esp)
+			
 			
 		
           
