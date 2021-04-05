@@ -32,4 +32,22 @@ One pixel example
    convert =  np.array(image)
    label =  1
    pixel.onePixel(convert,label,model)
+   
   
+Targetted-One pixel attack example
+==============
+
+..   code-block:: python 
+        
+        target = "different label in your dataset"
+        pixel.targettedonepixel(convert,target,model_3)
+
+Functional Pixel Attack
+==============
+
+..   code-block:: python 
+
+    change = [0,0,0] # color to be change rbg value
+    color = [255,255,255]#color to in which change is going to be changed too
+    
+    
