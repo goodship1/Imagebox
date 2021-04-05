@@ -106,7 +106,7 @@ class Patch(object):
 				return (image,np.array(image))
         if model != None:
 			convert =  np.array(image)
-			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
 			return (pred,convert)
       
     def generatempapatchs(self,image,rbg =(0,0,0)):
@@ -132,7 +132,7 @@ class Patch(object):
 
     def MPA(self,image,model = None,greyscale = True,samples = 3):
         patch = self.generatempapatches(image)
-        esp = self.generatesamples(image,samples)
+        esp = self.generatesample(image,samples)
         image = Image.open(image)
         if greyscale == True:
           for e in esp:
@@ -146,8 +146,9 @@ class Patch(object):
           return (image,np.array(image),esp)
         if model != None and greyscale == True:
 			convert = np.array(image)
-			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
 			return (pred,convert,esp)
+			
 		
           
     
