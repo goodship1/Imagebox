@@ -83,11 +83,11 @@ class Patch(object):
       if model != None and classfaction == "binary":
         im =  np.array(image)
         pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]), axis=-1))
-        return pred
+        return (pred,im)
       if model !=None and classfaction == "Multi":
 		  im = np.array(image)
-		  pred = model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32")
-		  return pred
+		  pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32"))
+		  return (pred,im)
   
 
     def samplebased(self,image,model=None):
