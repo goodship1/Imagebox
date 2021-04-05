@@ -26,11 +26,10 @@ One pixel example
              loss=tf.keras.losses.categorical_crossentropy,
              metrics=['accuracy']
              )
-
-     model_3.fit(train_gen,validation_data = validation,epochs=10)
-    file_path = "file path to your image"
-    image = cv2.imread(file_path)
-    convert =  np.array(image)
-    label =  1
-		pixel.onePixel(convert,label,model)
+   model_3.fit(train_gen,validation_data = validation,epochs=10)
+   file_path = "file path to your image"
+   image = cv2.imread(file_path)
+   convert =  np.array(image)
+   label =  1
+   pixel.onePixel(convert,label,model)
   
