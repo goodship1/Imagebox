@@ -38,7 +38,7 @@ Targetted-One pixel attack example
 ==============
 
 ..   code-block:: python 
-        
+        pixel = Pixel()
         target = "different label in your dataset"
         pixel.targettedonepixel(convert,target,model_3)
 
@@ -47,7 +47,30 @@ Functional Pixel Attack
 
 ..   code-block:: python 
 
+    pixel = Pixel()
     change = [0,0,0] # color to be change rbg value
     color = [255,255,255]#color to in which change is going to be changed too
+    pixel.functionalpixel(image,color,change,model_3)
     
     
+    
+Pixel jittering Attack
+==============
+
+..   code-block:: python 
+
+     pixel =  Pixel()
+     jitter = 10
+     pixel.pixeljitter(image,jitter,model_3)
+
+
+    
+Pixel shift Attack
+==============
+
+..   code-block:: python 
+     
+     pixel = Pixel()
+     shift = 10
+     pixel.pixelshift(image,shift,model_3)
+     
