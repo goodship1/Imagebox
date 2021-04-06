@@ -10,9 +10,27 @@ class NoiseTests(object):
     
     def __init__(self):
         self.noise = Noise()
-    def GuassianNoisetest(self,image):
-        check = self.noise.gaussian(image)
+        self.image  = None
+        self.label  = None
+        self.model =  loadmodel()
+        
+    def loadmodel(self):
+        pass
+        
+    def GuassianNoisetest(self):
+        check = self.noise.gaussian(self.image)
         return assert(check) == type(np.array)
+    
+    def rayleighnoiseimage(self):
+        input = self.image
+        check = self.noise.rayleighnoise(input)
+        return assert(check) == type(np.array)
+    
+    def rayleighnoisemode(self):
+        input =  self.image
+        
+        
+        
     
     def guassianNoisetest(self,image,label,model):
         pred = self.noise.guassian(image,model,label)
