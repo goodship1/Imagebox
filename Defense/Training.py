@@ -3,6 +3,7 @@ from Imagebox.Attacks import Contrast
 from Imagebox.Attacks import Gradient
 from Imagebox.Attacks import Blur
 from Imagebox.Attacks import Rotations
+from Imagebox.Attacks import Patch
 import numpy as np
 import keras
 import PIL
@@ -26,7 +27,7 @@ class Training(object):
         image = PIL.Image.fromarray(image, "RGB")
         image.save(input)
         
-        
+    
    def contrasttraining(self,image,filepath,model,label):
          pass
    
@@ -47,8 +48,14 @@ class Training(object):
   def randompixelchange(image,label,filepath):
       pass
 
-  def constrasttraining(image,filepath,numberofsamples,levelofcontrast)
-      pass
+  def constrasttraining(image,filepath,levelofcontrast,model,label)
+      cons =  self.constrast.contrast(image,levelofcontrast,model)
+      pred =  cons[0]
+      if pred == label:
+            self.writetotrainingpath(image,filepath)
+            return "sample added"
+            
+      
 
   def saltpeppertraining(self,image,filepath,numberofsamples,model,label):
         '''
@@ -75,7 +82,15 @@ class Training(object):
             samples +=1
             self.writetotrainingpath(image,filepath)
     return "number of samples generated" + " " + samples
-            
+    
+ 
+ def samplebasedtraining(self,image,filepath,model,label,samples):
+     for x in range(samples):  
+        result = self.patch.samplebased(image,model)
+        pred = result[0]
+        
+  
+     
 
  def rotationtrainingleftsingle(self,image,filepath,radians,model,label):
      '''rotates at sperfic rotation location
