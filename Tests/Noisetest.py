@@ -10,7 +10,7 @@ class NoiseTests(object):
     
     def __init__(self):
         self.noise = Noise()
-        self.image  = None
+        self.image  = 'Imagebox/Tests/pablo.jpg'
         self.label  = None
         self.model =  loadmodel()
         
@@ -22,12 +22,49 @@ class NoiseTests(object):
         return assert(check) == type(np.array)
     
     def rayleighnoiseimage(self):
-        input = self.image
-        check = self.noise.rayleighnoise(input)
-        return assert(check) == type(np.array)
+        input_image = self.image
+        check = self.noise.rayleighnoise(input_image)
+        assert(check) == type(np.array)
     
-    def rayleighnoisemode(self):
-        input =  self.image
+    def rayleighnoisemodel(self):
+        input_image =  self.image
+        result = self.noise.raylieghnoise(imput_image,self.model)
+        assert(result[0]) == type(int)
+
+    def gammanoiseimagetest(self):
+        input_image =  self.image
+        result = self.noise.gammanoise(input_image)
+        assert(result) == type(np.array)
+
+    def gammanoisemodel(self):
+        input_image =  self.image
+        result = self.noise.gammanoise(self,image,self.model)
+        assert(result[1]) == type(int)
+
+    def possionnoiseimage(self):
+        input_image = self.image
+        results =  self.noise.possionnoise(input_image)
+        assert(results) == type(np.array)
+
+    def possionnoisemodel(self);
+        input_image = self.image
+        results =  self.noise.possionnoise(input_image,self.model)
+        assert(results[0]) == type(int)
+
+    def specklenoiseimage(self):
+        results =  self.noise.speckle(self.image)
+        assert(results) ==  type(np.array)
+
+    def specklenoisemodel(self):
+        results = self.noise.speckle(self.image,self.model)
+        assert(results[0]) == type(int)
+
+    def browiannoiseimage(self):
+        results = self.noise.browiannoise(self.image)
+        assert(results) == type(np.array)
+
+    def browiannoisemodel(self):
+
         
         
         
