@@ -11,7 +11,7 @@ class NoiseTests(object):
     def __init__(self):
         self.noise = Noise()
         self.image  = 'Imagebox/Tests/pablo.jpg'
-        self.label  = None
+        self.label  = 34
         self.model =  loadmodel()
         
     def loadmodel(self):
@@ -102,10 +102,20 @@ class NoiseTests(object):
         assert(check) == type(np.array)
 
     def gammanoisetest(self,image,model,label):
-        pass
+        result =  self.noise.gammanoise(self.image,self.model,self.label)
+        result = type(result[0])
+        assert(result) == type(int)
 
-    def rayliegh(self):
-        pass
+    def raylieghnoise(self):
+        result = self.noise.rayleighnoise(self.image)
+        result = type(result)
+        assert(result) == type(np.array)
+    
+    def raylieghnoise(self):
+        result = self.noise.raylieghnoise(self.image,self.model,self.label)
+        result = type(result)
+        assert(result) == type(int)
+
         
 
 
