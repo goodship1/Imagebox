@@ -19,16 +19,19 @@ class NoiseTests(object):
         
     def GuassianNoisetest(self):
         check = self.noise.gaussian(self.image)
+        check = type(check)
         return assert(check) == type(np.array)
     
     def rayleighnoiseimage(self):
         input_image = self.image
         check = self.noise.rayleighnoise(input_image)
+        check =  type(check)
         assert(check) == type(np.array)
     
     def rayleighnoisemodel(self):
         input_image =  self.image
         result = self.noise.raylieghnoise(imput_image,self.model)
+        result = type(result[0])
         assert(result[0]) == type(int)
 
     def gammanoiseimagetest(self):
@@ -39,40 +42,48 @@ class NoiseTests(object):
     def gammanoisemodel(self):
         input_image =  self.image
         result = self.noise.gammanoise(self,image,self.model)
+        result = type(result[1])
         assert(result[1]) == type(int)
 
     def possionnoiseimage(self):
         input_image = self.image
         results =  self.noise.possionnoise(input_image)
+        results  = type(results)
         assert(results) == type(np.array)
 
     def possionnoisemodel(self);
         input_image = self.image
         results =  self.noise.possionnoise(input_image,self.model)
+        results = type(results)
         assert(results[0]) == type(int)
 
     def specklenoiseimage(self):
         results =  self.noise.speckle(self.image)
+        results =  type(results)
         assert(results) ==  type(np.array)
 
     def specklenoisemodel(self):
         results = self.noise.speckle(self.image,self.model)
+        results =  type(results)
         assert(results[0]) == type(int)
 
     def browiannoiseimage(self):
         scale =  1
         mean  = 1
         results = self.noise.browiannoise(self.image,scale,mean)
+        results = type(results)
         assert(results) == type(np.array)
 
     def browiannoisemodel(self):
         scale  = 1 
         mean =  1
         results = self.noise.browiannoise(self.image,scale,mean,self,model)
-        assert(results) == type(np.array)
+        results = type(result)
+        assert(results) == type(int)
 
     def expeontialnoiseimage(self):
         results = self.noise.expeontialnoise(self.image)
+        results =  type(results)
         assert(results) == type(np.array)
 
 
@@ -87,6 +98,7 @@ class NoiseTests(object):
 
     def gammanoisetest(self,image):
         check = self.noise.gammanoise(image)
+        check = type(check)
         assert(check) == type(np.array)
 
     def gammanoisetest(self,image,model,label):
