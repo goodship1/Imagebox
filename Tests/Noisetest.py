@@ -60,10 +60,22 @@ class NoiseTests(object):
         assert(results[0]) == type(int)
 
     def browiannoiseimage(self):
-        results = self.noise.browiannoise(self.image)
+        scale =  1
+        mean  = 1
+        results = self.noise.browiannoise(self.image,scale,mean)
         assert(results) == type(np.array)
 
     def browiannoisemodel(self):
+        scale  = 1 
+        mean =  1
+        results = self.noise.browiannoise(self.image,scale,mean,self,model)
+        assert(results) == type(np.array)
+
+    def expeontialnoiseimage(self):
+        results = self.noise.expeontialnoise(self.image)
+        assert(results) == type(np.array)
+
+
 
         
         
