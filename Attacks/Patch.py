@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter
 import random
 import cv2 as cv
 from Imagebox.Attacks import Gradcam
@@ -153,7 +153,19 @@ class Patch(object):
 			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
 			return (pred,convert,esp)
 			
-			
+	def adversarialpatch(self,image,imagetwo,model=None):
+		image = Image.open(image)
+		imagetwo = Image.open(imagetwo).resize((220,220))
+		mask = Image.new("L", image.size, 0)
+		draw = ImageDraw.Draw(mask)
+		draw.ellipse((20, 20, 130, 130), fill=200)
+		new_image = Image.composite(image, imagetwo, mask)
+		if model != None:
+			convert = np.array(new_image)
+			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+			return (pred,convert)
+		if model == None:
+			return new_image
 		
           
     
