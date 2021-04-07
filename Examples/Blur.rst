@@ -5,7 +5,8 @@ Guassain Blur
 =======
 ..   code-block:: python 
   
-  from Imagebox.Attacks import Blur
+ 
+from Imagebox.Attacks import Blur
   
   blur = Blur()
   stdv =  1 
