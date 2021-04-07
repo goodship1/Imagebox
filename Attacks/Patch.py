@@ -155,7 +155,7 @@ class Patch(object):
 			
 	def adversarialpatch(self,image,imagetwo,model=None):
 		image = Image.open(image)
-		imagetwo = Image.open(imagetwo).resize((220,220))
+		imagetwo = Image.open(imagetwo).resize((image.size))
 		mask = Image.new("L", image.size, 0)
 		draw = ImageDraw.Draw(mask)
 		draw.ellipse((20, 20, 130, 130), fill=200)
