@@ -1,7 +1,7 @@
-from Imagebox.Attacks import Noise
-from Imagebox.Attacks import Pixel
-from Imagebox.Attacks import Blur
-from Imagebox.Attacks import Contrast
-from Imagebox.Attacks import Rotations
-from Imagebox.Attacks import Patch
-from Imagebox.attacks import*
+from Attacks import Noise
+from Attacks import Pixel
+from Attacks import Blur
+from Attacks import Contrast
+from Attacks import Rotations
+from Attacks import Patch
+from Attacks import*

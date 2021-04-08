@@ -1,3 +1,0 @@
-- numpy
-- opencv
-- tensorflow>=2.0
