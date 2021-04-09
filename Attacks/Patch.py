@@ -1,15 +1,14 @@
 from PIL import Image, ImageDraw, ImageFilter
 import random
 import cv2 as cv
-from Imagebox.Attacks import Gradcam
+from Attacks import Gradcam
+
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
 
     def __str__(self):
         return "Advarsarial patch's"
     
-	def __init__(self):
-		self.grad = Gradcam()
    
     def generatepatch(self,image ,rbg = (0,0,0)):
         '''Helper function to generate black patch
@@ -120,6 +119,16 @@ class Patch(object):
         random_height =  random.randint(1,height)
         im = Image.new('RGB',(1, random_height), rbg)
         return im
+
+    def generatenoisepatch(self,image):
+        image = cv.imread(image)
+        width = image.shape[0]
+        height = image.shape[1]
+        speckle = np.random.normal(0,1,image.size)
+        speckle = speckle.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+
+
+
 	
     def loadtexture(self):
 	    pass
@@ -170,10 +179,16 @@ class Patch(object):
           
     
     def gradcamsetup(self,image,model):
+        image = cv.imread(image)
         pred = model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
         pred =  np.argmax(pred)
         layers = []
-        #for x in range(model.layers):
+        for x in(len(model.layers)):
+            layer = (model.get_layer(index = x).name)
+            layers.append(layers)
+        grad = Gradcam(model,pred,layers[2])
+        grad  = grad.compute_heatmap(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+        return grad
 
         
         
