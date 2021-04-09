@@ -126,6 +126,22 @@ class Patch(object):
         height = image.shape[1]
         speckle = np.random.normal(0,1,image.size)
         speckle = speckle.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+        image =  image + image
+        image = image * speckle
+        rand_h =  random.randint(1,height)
+        rand_w = random.randint(1,width)
+        im = Image.new('RBG',(rand_h,rand_w))
+        return im
+
+
+    def noisepatch(self,image,model=None):
+        noise_patch = self.generatenoisepatch(image)
+        image = Image.open(image)
+        width,height =  image.size
+        two_percent = 
+
+
+
 
 
 
