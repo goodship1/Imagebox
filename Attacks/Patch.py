@@ -137,8 +137,26 @@ class Patch(object):
     def noisepatch(self,image,model=None):
         noise_patch = self.generatenoisepatch(image)
         image = Image.open(image)
+        file_path = '/Imagebox/Attacks/noise12.png'
+        image = Image.open(file_path).resize(image.size)
         width,height =  image.size
-        two_percent = 
+        mask = Image.new("L", image.size, 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((10, 10, 20, 20), fill=200)
+        new_image = Image.composite(imagetwo,image, mask)
+        if model !=None:
+            convert =  np.array(new_image)
+            pred = model.predict(convert.reshape(1,convert.shape[0],convert[1],convert.shape[2]))
+            return (pred,convert)
+
+        if model == None:
+            return new_image
+
+
+
+
+        
+
 
 
 
@@ -150,7 +168,7 @@ class Patch(object):
 	    pass
     
     def keyfeatureextraction(self,image):
-        pass
+        return image
         
     def texturepatch(self,image,model):
 		pass
