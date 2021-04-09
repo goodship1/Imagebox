@@ -9,3 +9,8 @@ Advarsarial tool-box for attack images in the 2D space. Which contains a number 
 - tensorflow >= 2.0
 
 # Installation
+
+ Clone Directory  
+ 
+ Run python setup.py install
+ 
