@@ -5,7 +5,7 @@ Sample based patch Attack
 
 .. code-block:: python 
 
-        from Imagebox.Attacks import Patch
+        from Attacks import Patch
         patch = Patch()
         model = 'pretrained classfier'
         image = 'image file path'
@@ -15,7 +15,7 @@ Sample based patch Attack
 
 Sample based patch RBG Attack
   
-  .. code-block:: python 
+.. code-block:: python 
   
    from Imagebox.Attacks import Patch
    
@@ -31,9 +31,9 @@ Sample based patch RBG Attack
 MPA patch attack with three samples the default implementation wth defualt grey scale 
 
  
-  .. code-block:: python 
+.. code-block:: python 
   
-   from Imagebox.Attacks import Patch
+   from Attacks import Patch
    
    patch = Patch()
    model = 'pretrained classfier'
@@ -46,12 +46,12 @@ MPA patch attack with three samples the default implementation wth defualt grey 
    
    
    
- MPA patch attack with three samples the default implementation wth defualt grey scale with no model 
+MPA patch attack with three samples the default implementation wth defualt grey scale with no model 
  
  
-  .. code-block:: python 
+.. code-block:: python 
   
-   from Imagebox.Attacks import Patch
+   from Attacks import Patch
    
    patch = Patch()
    image = 'image file path'
@@ -62,12 +62,13 @@ MPA patch attack with three samples the default implementation wth defualt grey 
    print(result[0])#prints the image array
    
    
-  MPA patch attack with three samples the default implementation with greyscale  and custom sample size
+MPA patch attack with three samples the default implementation with greyscale  and custom sample size
   
   
-  .. code-block:: python 
   
-   from Imagebox.Attacks import Patch
+.. code-block:: python 
+  
+   from Attacks import Patch
    
    patch = Patch()
    image = 'image file path'
@@ -83,9 +84,9 @@ MPA patch attack with three samples the default implementation wth defualt grey 
    
   MPA patch attack with three samples the default implementation without greyscale  and default sample size
   
-    .. code-block:: python 
+.. code-block:: python 
     
-       from Imagebox.Attacks import Patch
+       from Attacks import Patch
        
        patch = Patch()
        image = 'image file path'
@@ -97,9 +98,9 @@ MPA patch attack with three samples the default implementation wth defualt grey 
        
  HPA patch attack with mutilclassfier neural network.
  
-     .. code-block:: python 
+.. code-block:: python 
        
-       from Imagebox.Attacks import Patch
+       from Attacks import Patch
        
        patch = Patch()
        image = 'image file path'
@@ -112,10 +113,10 @@ MPA patch attack with three samples the default implementation wth defualt grey 
 
  HPA patch attack with binary neural network.
  
-        
-     .. code-block:: python 
+
+.. code-block:: python 
        
-       from Imagebox.Attacks import Patch
+       from Attacks import Patch
  
        patch = Patch()
        image = 'image file path'
@@ -129,9 +130,9 @@ MPA patch attack with three samples the default implementation wth defualt grey 
  
     Adversarial  patch attack.
     
-     .. code-block:: python 
+.. code-block:: python 
        
-       from Imagebox.Attacks import Patch
+       from Attacks import Patch
        
        patch = Patch()
        image = 'image file path'
@@ -142,7 +143,20 @@ MPA patch attack with three samples the default implementation wth defualt grey 
        print(result[1])#prints the image array
        
        
-       
+Noise patch 
+
+.. code-block:: python 
+
+        from Attacks import Patch
+
+        patch =  Patch()
+        image = 'file path to your image'
+        model = 'pretrained nueral network'
+        result = patch.noisepatch(image,model)
+        print(result[0])#returns the predictiom
+        print(result[1])#returns the  image array
+
+
        
        
     
