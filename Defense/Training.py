@@ -1,9 +1,9 @@
-from Imagebox.Attacks import Noise
-from Imagebox.Attacks import Contrast
-from Imagebox.Attacks import Gradient
-from Imagebox.Attacks import Blur
-from Imagebox.Attacks import Rotations
-from Imagebox.Attacks import Patch
+from Attacks import Noise
+from Attacks import Contrast
+from Attacks import Gradient
+from Attacks import Blur
+from Attacks import Rotations
+from Attacks import Patch
 import numpy as np
 import keras
 import PIL
@@ -23,9 +23,11 @@ class Training(object):
         
     
    def writetotrainingpath(self,image,filepath):
-        input = input("enter file name")
+        file_name = input("enter file name")
         image = PIL.Image.fromarray(image, "RGB")
-        image.save(input)
+        path  =  file_path + '/'+file_name
+        Image.save(path)
+
         
     
    def contrasttraining(self,image,filepath,model,label):
