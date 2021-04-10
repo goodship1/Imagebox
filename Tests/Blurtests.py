@@ -4,7 +4,7 @@ class Blurtests(object):
     def __init__(self):
         self.image = 'Tests/pablo.jng'
         self.model = None
-        self.label = None
+        self.label = 34
         self.kernel_size = (3,3)
         self.percent = 5
         self.blur =  Blur()
@@ -32,8 +32,11 @@ class Blurtests(object):
         assert(result) == type(int)
         
     def medianblurimage(self):
-        result  = self.blur.
-    def medianblurmode(self):
+        result  = self.blur.medianblur(image,percent)
+        result = type(result[0])
+        assert(result) == type(np.array)
+
+    def medianblurmode(lself):
         pass
 
     

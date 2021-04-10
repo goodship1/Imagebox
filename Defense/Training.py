@@ -31,7 +31,11 @@ class Training(object):
         
     
    def contrasttraining(self,image,filepath,model,label):
-         pass
+         contrast =  self.contrast(image,model)
+         compare =  contrast[0] == label
+         if compare == True:
+             self.writetotrainingpath(contrast[1],filepath)
+
    
    def gussianTraining(self,image,filePath,numberofsamples,model,label):
        '''function for generating guassian noise
@@ -90,7 +94,10 @@ class Training(object):
      for x in range(samples):  
         result = self.patch.samplebased(image,model)
         pred = result[0]
-        
+        if pred == label:
+            self.writetotrainingpath(result[1],filepath)
+
+
   
      
 
