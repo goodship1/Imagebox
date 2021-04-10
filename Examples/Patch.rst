@@ -82,7 +82,7 @@ MPA patch attack with three samples the default implementation with greyscale  a
   
    
    
-  MPA patch attack with three samples the default implementation without greyscale  and default sample size
+MPA patch attack with three samples the default implementation without greyscale  and default sample size
   
 .. code-block:: python 
     
@@ -96,7 +96,7 @@ MPA patch attack with three samples the default implementation with greyscale  a
        result =  patch.MPA(image,greyscale,model,samples)
        
        
- HPA patch attack with mutilclassfier neural network.
+HPA patch attack with mutilclassfier neural network.
  
 .. code-block:: python 
        
@@ -111,7 +111,7 @@ MPA patch attack with three samples the default implementation with greyscale  a
        print(results[0])
        
 
- HPA patch attack with binary neural network.
+HPA patch attack with binary neural network.
  
 
 .. code-block:: python 
@@ -128,7 +128,7 @@ MPA patch attack with three samples the default implementation with greyscale  a
        print(result[0])#prints the prection
     
  
-    Adversarial  patch attack.
+Adversarial  patch attack.
     
 .. code-block:: python 
        
