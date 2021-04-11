@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+import keras
 from Imagebox.Attacks import Noise
 
 
@@ -15,7 +16,25 @@ class NoiseTests(object):
         self.model =  loadmodel()
         
     def loadmodel(self):
-        pass
+        model_3 = keras.Sequential()
+        model_3.add(Conv2D(16,kernel_size =(3,3),input_shape =(300,300,3),activation='relu'))
+        model_3.add(MaxPooling2D())
+        model_3.add(Conv2D(64,kernel_size =(3,3),activation = 'relu'))
+        model_3.add(MaxPooling2D())
+        model_3.add(Conv2D(64,kernel_size = (3,3),activation='relu'))
+        model_3.add(MaxPooling2D())
+        model_3.add(Flatten())
+        model_3.add(keras.layers.Dropout(0.5))
+        model_3.add(Dense(2000,activation='relu'))
+        model_3.add(Dense(51,activation ='softmax'))
+        model_3.compile(optimizer='adam',
+             loss=tf.keras.losses.categorical_crossentropy,
+             metrics=['accuracy']
+             )
+
+     model_3.fit(train_gen,validation_data = validation,epochs=10)
+     return model_3
+        
         
     def GuassianNoisetest(self):
         check = self.noise.gaussian(self.image)
