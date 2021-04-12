@@ -154,24 +154,29 @@ class Patch(object):
 
 
 
-
-        
-
-
-
-
-
-
-
-	
     def loadtexture(self):
-	    pass
+	    file_path = 'Imagebox/Attacks/saving.jpeg'
+	    return file_path
     
     def keyfeatureextraction(self,image):
         return image
         
-    def texturepatch(self,image,model):
-		pass
+    def texturepatch(self,image,model=None):
+		image = Image.open(image)
+		width,height  = image.size
+		texture =  self.loadtexture()
+		imagetwo = Image.open(texture).resize(image.size)
+		mask = Image.new("L", image.size, 1)
+		draw = ImageDraw.Draw(mask)
+		draw.rectangle((20, 20, 90, 90), fill=300)
+		new_image = Image.composite(imagetwo,image ,mask)
+		if model != None:
+			convert = np.array(new_image)
+			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+			return (pred,convert)
+		if model == None:
+			return new_image
+		
 
     def MPA(self,image,model = None,greyscale = True,samples = 3):
         patch = self.generatempapatches(image)
