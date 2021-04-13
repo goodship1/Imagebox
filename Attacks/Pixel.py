@@ -80,8 +80,7 @@ class Pixel(object):
 
         
 
-        def pixeljitter(self,image,jitter,model=None):
-            
+	def pixeljitter(self,image,jitter,model=None):
 				image = cv.imread(image)
 				width = image.shape[0]
 				height = image.shape[1]
@@ -95,8 +94,8 @@ class Pixel(object):
 				elif model != None:
 						pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
 						return (pred,add)
-       
-        def pixelshift(self,image,shift,model = None):
+
+	def pixelshift(self,image,shift,model = None):
 		   image = cv.imread(image)
 		   red = image[:,:,0]
 		   blue = image[:,:,1]
