@@ -1,5 +1,6 @@
 import cv2 as cv
 import numpy as np
+import keras
 class Contrast(object):
     '''Class for adding constrast to image to reduce to image quality'''
     

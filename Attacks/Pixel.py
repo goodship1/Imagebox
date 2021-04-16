@@ -1,5 +1,7 @@
 import numpy as np
 from PIL import Image
+import keras
+
 class Pixel(object):
 
     '''Class for pixel attacks on images
@@ -41,10 +43,10 @@ class Pixel(object):
                 current =  read.getpixel((x,y))#reads the current pixel rbg value
                 if current == color:#checks if rbg colour is the one to be changed
                     read.putpixel((x,y),colourchange)#changes the pixel
-	if model != None:
-		convert = np.array(read)
-		pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0].convert.shape[1],convert.shape[2])))
-		return (pred,convert)
+        if model != None:
+          convert = np.array(read)
+          pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0].convert.shape[1],convert.shape[2])))
+          return (pred,convert)
 
     def onePixel(self,image,label,model=None):
         '''Applying one pixel change to an image
@@ -63,39 +65,35 @@ class Pixel(object):
                   pred = np.argmax(model.predict(makechange.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
                   return (makechange,pred,location)
                 
-	def targetedpixel(self,image,model,target):
-		'''applying targetted pixel attack
-		image -> numpy array
-		model -> pretrained classifer
-		target -> label of target '''
-		height = image.shape[1]
-		width = image.shape[0]
-		for x in range(width):
-			for y in range(height):
-				location = np.array([x,y,255,255,0])
-				change  = self.pixelchange(image,location)[0]
-				if np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == target:
-					pred = np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
-					return (change,pred,location)
-
-        
-
-	def pixeljitter(self,image,jitter,model=None):
-				image = cv.imread(image)
-				width = image.shape[0]
-				height = image.shape[1]
-				colour =  image.shape[2]
-				noise = np.random.randint(0,jitter,(width,height))
-				zeros = np.zeros_like(image)
-				zeros[:,:,1] = noise
-				add =  cv.add(image,zeros)
-				if model == None:
-					return add
-				elif model != None:
-						pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-						return (pred,add)
-
-	def pixelshift(self,image,shift,model = None):
+    def targetedpixel(self,image,model,target):
+		#'''applying targetted pixel attack
+		#image -> numpy array
+		#model -> pretrained classifer
+		#target -> label of target '''
+      height = image.shape[1]
+      width = image.shape[0]
+      for x in range(width):
+        for y in range(height):
+          location = np.array([x,y,255,255,0])
+          change  = self.pixelchange(image,location)[0]
+          if np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == target:
+            pred = np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+            return (change,pred,location)
+    def pixeljitter(self,image,jitter,model=None):
+        image = cv.imread(image)
+        width = image.shape[0]
+        height = image.shape[1]
+        colour =  image.shape[2]
+        noise = np.random.randint(0,jitter,(width,height))
+        zeros = np.zeros_like(image)
+        zeros[:,:,1] = noise
+        add =  cv.add(image,zeros)
+        if model == None:
+          return add
+        elif model != None:
+          pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+          return (pred,add)
+    def pixelshift(self,image,shift,model = None):
 		   image = cv.imread(image)
 		   red = image[:,:,0]
 		   blue = image[:,:,1]
@@ -107,8 +105,7 @@ class Pixel(object):
 		   if model != None:
 			   pred = model.predict(pixel_shift.reshape(1,pixel_shift.shape[0],pixel_shift.shape[1],pixel_shift.shape[2]))
 			   return(pred,pixel_shift)
-		   else:
-				return pixel_shift
+      
                 
 
 
