@@ -37,11 +37,11 @@ class Patch(object):
         random_height = random.randint(1,height)-1
         image.paste(patch,(random_width,random_height))
         if model == None:
-			return(image,np.array(image))
+			      return(image,np.array(image))
         if model != None:
-			convert = np.array(image)
-			pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-			return (pred,convert)
+			      convert = np.array(image)
+			      pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			      return (pred,convert)
 
     def generatesample(self,image,k):
         '''generate image samples
@@ -84,9 +84,9 @@ class Patch(object):
         pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]), axis=-1))
         return (pred,im)
       if model !=None and classfaction == "Multi":
-		  im = np.array(image)
-		  pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32"))
-		  return (pred,im)
+        im = np.array(image)
+        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32"))
+        return (pred,im)
   
 
     def samplebased(self,image,model=None):
@@ -102,11 +102,11 @@ class Patch(object):
         random_height = random.randint(1,height)
         image.paste(patch,(random_width,random_height))
         if model == None:
-				return (image,np.array(image))
+          return (image,np.array(image))
         if model != None:
-			convert =  np.array(image)
-			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
-			return (pred,convert)
+          convert =  np.array(image)
+          pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+          return (pred,convert)
       
     def generatempapatchs(self,image,rbg =(0,0,0)):
         '''Generates the MPA patches of mpa attack
@@ -162,20 +162,20 @@ class Patch(object):
         return image
         
     def texturepatch(self,image,model=None):
-		image = Image.open(image)
-		width,height  = image.size
-		texture =  self.loadtexture()
-		imagetwo = Image.open(texture).resize(image.size)
-		mask = Image.new("L", image.size, 1)
-		draw = ImageDraw.Draw(mask)
-		draw.rectangle((20, 20, 90, 90), fill=300)
-		new_image = Image.composite(imagetwo,image ,mask)
-		if model != None:
-			convert = np.array(new_image)
-			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
-			return (pred,convert)
-		if model == None:
-			return new_image
+      image = Image.open(image)
+      width,height  = image.size
+      texture =  self.loadtexture()
+      imagetwo = Image.open(texture).resize(image.size)
+      mask = Image.new("L", image.size, 1)
+      draw = ImageDraw.Draw(mask)
+      draw.rectangle((20, 20, 90, 90), fill=300)
+      new_image = Image.composite(imagetwo,image ,mask)
+      if model != None:
+        convert = np.array(new_image)
+        pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+        return (pred,convert)
+      if model == None:
+        return new_image
 		
 
     def MPA(self,image,model = None,greyscale = True,samples = 3):
@@ -193,27 +193,14 @@ class Patch(object):
         if model == None and greyscale == True:
           return (image,np.array(image),esp)
         if model != None and greyscale == True:
-			convert = np.array(image)
-			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
-			return (pred,convert,esp)
+          convert = np.array(image)
+          pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+          return (pred,convert,esp)
         if model !=None and greyscale == False:
-			convert = np.array(image)
-			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
-			return (pred,convert,esp)
-			
-	def adversarialpatch(self,image,imagetwo,model=None):
-		image = Image.open(image)
-		imagetwo = Image.open(imagetwo).resize((image.size))
-		mask = Image.new("L", image.size, 0)
-		draw = ImageDraw.Draw(mask)
-		draw.ellipse((20, 20, 130, 130), fill=200)
-		new_image = Image.composite(image, imagetwo, mask)
-		if model != None:
-			convert = np.array(new_image)
-			pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
-			return (pred,convert)
-		if model == None:
-			return new_image
+          convert = np.array(image)
+          pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+          return (pred,convert,esp)
+
 		
           
     
@@ -228,6 +215,19 @@ class Patch(object):
         grad = Gradcam(model,pred,layers[2])
         grad  = grad.compute_heatmap(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
         return grad
+    def adversarialpatch(self,image,imagetwo,model=None):
+      image = Image.open(image)
+      imagetwo = Image.open(imagetwo).resize((image.size))
+      mask = Image.new("L", image.size, 0)
+      draw = ImageDraw.Draw(mask)
+      draw.ellipse((20, 20, 130, 130), fill=200)
+      new_image = Image.composite(image, imagetwo, mask)
+      if model != None:
+        convert = np.array(new_image)
+        pred = np.argmax(model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2])))
+        return (pred,convert)
+      if model == None:
+        return new_image
 
         
         

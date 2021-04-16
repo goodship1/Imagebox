@@ -1,6 +1,6 @@
 import numpy as np
 import cv2 as cv
-import keras
+#import keras
 
 class Noise(object):
     '''Class for adding different types of
@@ -68,8 +68,6 @@ class Noise(object):
         	if model != None and label != None:
 				      pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
 				      return (pred,noise_image)
-		elif model == None:
-				return noise_image
 		
     
     def possionnoise(self,image,model =None,label=None):
