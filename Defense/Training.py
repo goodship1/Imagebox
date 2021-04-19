@@ -110,6 +110,35 @@ class Training(object):
           if prediction[0] == label:
             store.append(prediction[1])
         return store
+      
+      def samplebasedpatchtraining(self,image,model,label):
+        store = []
+        prediction  = self.patch.samplebased(image,model)
+        if prediction[0] == label:
+          store.append(prediction[1])
+        return store
+      
+      def samplebasedcolortraining(self,image,rbg,model,label):
+        store = []
+        prediction =  self.samplebasedrbg(image,rbg,model)
+        if prediction[0] == label:
+          store.append(prediction[1])
+        return store
+      
+      def MPATraining(self,image,model,samples,label):
+        store = []
+        greyscale =  True
+        for x in range(len(samples)):
+          prediction =  self.patch.MPA(image,model,greyscale,samples[x])
+          if prediciton[0] == label:
+            store.append(prediction[1])
+        return store
+
+
+
+
+
+      
 
 
       
