@@ -25,7 +25,7 @@ class Pixel(object):
         for x,image in zip(locations ,imgs):
             pixels = np.split(x, len(x) // 5)
             for pixel in pixels:
-                x_pos, y_pos, rgb = pixel
+                x_pos, y_pos, *rgb = pixel
                 image[x_pos, y_pos] = rgb
         return imgs
   
@@ -91,7 +91,7 @@ class Pixel(object):
         if model == None:
           return add
         elif model != None:
-          pred  = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+          pred  = model.predict(add.reshape(1,add.shape[0],add.shape[1],add.shape[2]))
           return (pred,add)
     def pixelshift(self,image,shift,model = None):
 		   image = cv.imread(image)

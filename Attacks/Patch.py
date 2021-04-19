@@ -1,7 +1,8 @@
 from PIL import Image, ImageDraw, ImageFilter
 import random
 import cv2 as cv
-#from Attacks.Gradcam import Gradcam
+from Attacks.Gradcam import Gradcam
+import numpy as np
 
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
