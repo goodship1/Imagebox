@@ -184,7 +184,7 @@ class Patch(object):
 		
 
     def MPA(self,image,model = None,greyscale = True,samples = 3):
-        patch = self.generatempapatches(image)
+        patch = self.generatempapatchs(image)
         esp = self.generatesample(image,samples)
         image = Image.open(image)
         if greyscale == True:
@@ -192,7 +192,7 @@ class Patch(object):
             image.paste(patch,(e))
         if greyscale == False:
           rbg =(230,100,50)
-          rbg_patch = self.generatempapatch(image,rbg)
+          rbg_patch = self.generatempapatchs(image,rbg)
           for e  in esp:
             image.paste(patch,(e))
         if model == None and greyscale == True:
