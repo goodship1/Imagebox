@@ -80,8 +80,49 @@ class Training(object):
             store.append(change)
       return store
 
+      def clockwisetraining(self,image,model,array,label):
+        store = []
+        for x in range(len(array)):
+          prediction  = self.rotation.clockwise(image,array[x],model)
+          if prediction[0] == label:
+            store.append(prediction[1])
+
+      def anticlockwisetraining(self,image,model,array,label):
+        store = []
+        for x in range(len(array)):
+          prediction =  self.rotation.anticlockwise(image,array[x],model)
+          if prediction[0] == label:
+            store.append(prediction[1]) 
+        return store
+      
+      def jittertraining(self,image,jitter,model,label):
+          store  = []
+          for x in range(len(jitter)):
+            prediction  = self.pixel.pixeljittering(image,jitter[x],model)
+            if prediction[0] == label:
+              store.append(prediction[1])
+          return store
+      
+      def shifttraining(self,image,shift,model,label):
+        store = []
+        for x in range(len(shift)):
+          prediction  = self.pixel.pixelshift(image,shift[x],model)
+          if prediction[0] == label:
+            store.append(prediction[1])
+        return store
+
+
+      
+
+
+
+
+
+
+
+
     
-    
+
 
 
 
