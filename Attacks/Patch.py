@@ -146,7 +146,7 @@ class Patch(object):
         ran = random.randint(1,10)
         ran_1 = random.randint(1,10)
         draw.ellipse((ran, ran_1, 20, 20), fill=200)
-        new_image = Image.composite(imagetwo,image, mask)
+        new_image = Image.composite(noise_path,image, mask)
         if model !=None:
             convert =  np.array(new_image)
             pred = model.predict(convert.reshape(1,convert.shape[0],convert[1],convert.shape[2]))
