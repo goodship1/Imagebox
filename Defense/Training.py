@@ -133,6 +133,16 @@ class Training(object):
           if prediciton[0] == label:
             store.append(prediction[1])
         return store
+      
+      def gussianblurtraining(self,image,model,kernel,std,label):
+        store = []
+        prediction =  self.blur.guassianblur(std,image,kernel,model)
+        if prediction[0] == label:
+          store.append(prediction[1])
+        return store
+
+
+
 
 
 
