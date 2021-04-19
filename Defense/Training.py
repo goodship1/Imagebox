@@ -1,13 +1,14 @@
-from Attacks import Noise
-from Attacks import Contrast
-from Attacks import Gradient
-from Attacks import Blur
-from Attacks import Rotations
-from Attacks import Patch
+from Attacks.Noise import Noise
+from Attacks.Constrast import Contrast
+from Attacks.Blur import Blur
+from Attacks.Rotations import Rotate
+from Attacks.Patch import Patch
+from Attacks.Pixel import Pixel
 import numpy as np
 import keras
 import PIL
-from PIL import Image 
+from PIL import Image
+import cv2 as cv 
 
 class Training(object):
     
@@ -17,104 +18,81 @@ class Training(object):
     def __init__(self):
         self.noise = Noise()
         self.contrast = Contrast()
-        self.rotate = Rotations()
-        self.fgsm = Gradient()
+        self.rotate = Rotate()
         self.blur = Blur()
+        self.patch = Patch()
+        self.pixel = Pixel()
         
-    
-   def writetotrainingpath(self,image,filepath):
-        file_name = input("enter file name")
-        image = PIL.Image.fromarray(image, "RGB")
-        path  =  file_path + '/'+file_name
-        Image.save(path)
+    def contrasttraining(self,image,level,model,label):
+       prediction = self.contrast.contrast(image,level,model)
+       store = []
+       if prediction[0] == label:
+         store.append(prediction[1])
+       return store
 
-        
+    def gussainnoisetraining(self,image,model,label):
+      prediction = self.noise.guassian(image,model)
+      store = []
+      if prediction[0] == label:
+        store.append(prediction[1])
+      return store
     
-   def contrasttraining(self,image,filepath,model,label):
-         contrast =  self.contrast(image,model)
-         compare =  contrast[0] == label
-         if compare == True:
-             self.writetotrainingpath(contrast[1],filepath)
+    def raylieghnoisetraining(self,image,model):
+      prediction = self.noise.rayleighnoise(image,model)
+      store = []
+      if prediction[0] == label:
+        store.append(prediction[1])
+      return store
+    
+    def gammanoisetrainning(self,image,model):
+      prediction = self.noise.gammanoise(image,model)
+      store = []
+      if prediction[0] == label:
+        store.append(prediction[1])
+      return store
+    
+    def expeontialnoisetraining(self,image,model):
+     
+     prediction = self.noise.expeontialnoise(image,model)
+     store = []
+     if prediction[0] == label:
+       store.append(prediction[1])
+     return store
 
-   
-   def gussianTraining(self,image,filePath,numberofsamples,model,label):
-       '''function for generating guassian noise
-       images for training'''
-        samples_added = 0
-        for x in range(numberofsamples):
-             gussian_image = self.noise.Gussiannoise(image)
-             if np.argmax(model.predict(gussian.image.reshape(1,image.shape[0],image.shape[1],image.shapep[2]))) == label:
-                    self.writetotrainingpath(image,file_path)
-                    samples_added +=1
-         return "number of samples added" + " " + str(samples_added) +" " + "to file path" +" " + filePath
+    def speckletraining(self,image,model,label):
+      prediciton =  self.noise.speckle(image,model)
+      store = []
+      if prediction[0] == label:
+        store.append(prediction[1])
+      return store
+
+    def pixeltraining(self,image,model,samples = 100):
+      width = image.shape[0]
+      height = image.shape[1]
+      store = []
+      count = 0
+      for x in range(width):
+        for y in range(height):
+          location = np.array([x,y,255,255,255])
+          change = self.pixel.pixelchange(location,image)
+          prediction =  np.argmax(model.predict(change.reshape(1,change.shape[0],change.shape[1],change.shape[2])))
+          if prediction == label:
+            store.append(change)
+      return store
+
     
+    
+
+
+
+
+
+
+    
+
+
+
+
                     
              
-  
-  def randompixelchange(image,label,filepath):
-      pass
 
-  def constrasttraining(image,filepath,levelofcontrast,model,label)
-      cons =  self.constrast.contrast(image,levelofcontrast,model)
-      pred =  cons[0]
-      if pred == label:
-            self.writetotrainingpath(image,filepath)
-            return "sample added"
-            
-      
-
-  def saltpeppertraining(self,image,filepath,numberofsamples,model,label):
-        '''
-        image -> image file path
-        filepath -> training absolute file path
-        numberofsamples -> total number of noise samples wish to generate
-        model -> pretrained classifer
-        label -> correct training label
-        '''
-        samples_added =  0
-        for x in numberofsamples:
-            speckle_noise =  self.noise.Speckle(image)
-            if np.argmax(model.predict(speckle_noise.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == label:
-                self.writetotrainingpath(image,filepath)
-                samples_added +=1
-        return "number of samples added" + " " + str(samples_added) +" " + "to file path" +" " + filePath
-        
-        
- def continousclockwise(self,image,filepath,radians,model,label):
-    samples = 0
-    for x in range(radians):
-        self.rotation.clockwise(image,x)
-        if np.argmax(model.predict(1,image.shape[0],image.shape[1],image.shape[2]))) == label:
-            samples +=1
-            self.writetotrainingpath(image,filepath)
-    return "number of samples generated" + " " + samples
-    
- 
- def samplebasedtraining(self,image,filepath,model,label,samples):
-     for x in range(samples):  
-        result = self.patch.samplebased(image,model)
-        pred = result[0]
-        if pred == label:
-            self.writetotrainingpath(result[1],filepath)
-
-
-  
-     
-
- def rotationtrainingleftsingle(self,image,filepath,radians,model,label):
-     '''rotates at sperfic rotation location
-        image -> image file path
-        filepath -> training file path
-        radians -> int
-        model -> pretained classfier
-        label -> int
-        '''
-        rot = self.rotations.clockwise(image,radians)
-        if np.argmax(model.predict(1,rot.shape[0],rot.shape[1],rot.shape[2]))) == label:
-            self.writetotrainingpath(image,filepath)
-            
-      
-        
-
- def fgsmtraining(image,label,filepath,ep):
-     pass
