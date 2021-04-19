@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFilter
 import random
 import cv2 as cv
-from Attacks import Gradcam
+#from Attacks.Gradcam import Gradcam
 
 class Patch(object):
     '''Class for generating advarsarial patch attack'''
@@ -142,7 +142,9 @@ class Patch(object):
         width,height =  image.size
         mask = Image.new("L", image.size, 0)
         draw = ImageDraw.Draw(mask)
-        draw.ellipse((10, 10, 20, 20), fill=200)
+        ran = random.randint(100)
+        ran_1 = random.randint(100)
+        draw.ellipse((ran, ran_1, 20, 20), fill=200)
         new_image = Image.composite(imagetwo,image, mask)
         if model !=None:
             convert =  np.array(new_image)
@@ -168,7 +170,9 @@ class Patch(object):
       imagetwo = Image.open(texture).resize(image.size)
       mask = Image.new("L", image.size, 1)
       draw = ImageDraw.Draw(mask)
-      draw.rectangle((20, 20, 90, 90), fill=300)
+      ran = random.randint(100)
+      ra =  random.randint(100)
+      draw.rectangle((ran, ra, 90, 90), fill=300)
       new_image = Image.composite(imagetwo,image ,mask)
       if model != None:
         convert = np.array(new_image)
@@ -220,7 +224,9 @@ class Patch(object):
       imagetwo = Image.open(imagetwo).resize((image.size))
       mask = Image.new("L", image.size, 0)
       draw = ImageDraw.Draw(mask)
-      draw.ellipse((20, 20, 130, 130), fill=200)
+      ran_1 = random.randint(100)
+      ran_2 = random.randint(100)
+      draw.ellipse((ran_1, ran_2, 130, 130), fill=200)
       new_image = Image.composite(image, imagetwo, mask)
       if model != None:
         convert = np.array(new_image)
@@ -231,3 +237,4 @@ class Patch(object):
 
         
         
+
