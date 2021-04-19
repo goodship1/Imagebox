@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import keras
-
+import cv2 as cv
 class Rotate(object):
 
     '''Rotation attacks to fool deep learning neural
