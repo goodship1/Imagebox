@@ -173,7 +173,7 @@ class Patch(object):
       draw = ImageDraw.Draw(mask)
       ran = random.randint(100)
       ra =  random.randint(100)
-      draw.rectangle((ran, ra, 90, 90), fill=300)
+      draw.rectangle((10, 10, 90, 90), fill=300)
       new_image = Image.composite(imagetwo,image ,mask)
       if model != None:
         convert = np.array(new_image)
@@ -227,7 +227,7 @@ class Patch(object):
       draw = ImageDraw.Draw(mask)
       ran_1 = random.randint(100)
       ran_2 = random.randint(100)
-      draw.ellipse((ran_1, ran_2, 130, 130), fill=200)
+      draw.ellipse((10, 10, 130, 130), fill=200)
       new_image = Image.composite(image, imagetwo, mask)
       if model != None:
         convert = np.array(new_image)
