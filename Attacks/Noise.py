@@ -16,9 +16,9 @@ class Noise(object):
 	       guassian  = np.random.normal(0,1,image.size)
 	       guassian = guassian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
 	       noise_image = cv.add(image,guassian)
-	       if model != None and label !=None:
-			        pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
-			        return (pred,noise_image)
+	       if model != None:
+			    pred = np.argmax(model.predict(noise_image.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
+			    return (pred,noise_image)
 	       elif model == None:
 			        return noise_image
 	       
