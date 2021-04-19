@@ -131,7 +131,7 @@ class Patch(object):
         image = image * speckle
         rand_h =  random.randint(1,height)
         rand_w = random.randint(1,width)
-        im = Image.new('RBG',(rand_h,rand_w))
+        im = Image.new('RGB',(rand_h,rand_w))
         return im
 
 
@@ -143,8 +143,8 @@ class Patch(object):
         width,height =  image.size
         mask = Image.new("L", image.size, 0)
         draw = ImageDraw.Draw(mask)
-        ran = random.randint(10)
-        ran_1 = random.randint(10)
+        ran = random.randint(1,10)
+        ran_1 = random.randint(1,10)
         draw.ellipse((ran, ran_1, 20, 20), fill=200)
         new_image = Image.composite(imagetwo,image, mask)
         if model !=None:
@@ -171,9 +171,9 @@ class Patch(object):
       imagetwo = Image.open(texture).resize(image.size)
       mask = Image.new("L", image.size, 1)
       draw = ImageDraw.Draw(mask)
-      ran = random.randint(100)
-      ra =  random.randint(100)
-      draw.rectangle((10, 10, 90, 90), fill=300)
+      ran = random.randint(1,100)
+      ra =  random.randint(1,100)
+      draw.rectangle((ran, ra, 90, 90), fill=300)
       new_image = Image.composite(imagetwo,image ,mask)
       if model != None:
         convert = np.array(new_image)
@@ -225,9 +225,9 @@ class Patch(object):
       imagetwo = Image.open(imagetwo).resize((image.size))
       mask = Image.new("L", image.size, 0)
       draw = ImageDraw.Draw(mask)
-      ran_1 = random.randint(100)
-      ran_2 = random.randint(100)
-      draw.ellipse((10, 10, 130, 130), fill=200)
+      ran_1 = random.randint(1,10)
+      ran_2 = random.randint(1,10)
+      draw.ellipse((ran_1,ran_2, 130, 130), fill=200)
       new_image = Image.composite(image, imagetwo, mask)
       if model != None:
         convert = np.array(new_image)
