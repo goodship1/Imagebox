@@ -138,13 +138,13 @@ class Patch(object):
     def noisepatch(self,image,model=None):
         noise_patch = self.generatenoisepatch(image)
         image = Image.open(image)
-        file_path = '/Imagebox/Attacks/noise12.png'
+        file_path = 'Attacks/noise12.png'
         image = Image.open(file_path).resize(image.size)
         width,height =  image.size
         mask = Image.new("L", image.size, 0)
         draw = ImageDraw.Draw(mask)
-        ran = random.randint(100)
-        ran_1 = random.randint(100)
+        ran = random.randint(10)
+        ran_1 = random.randint(10)
         draw.ellipse((ran, ran_1, 20, 20), fill=200)
         new_image = Image.composite(imagetwo,image, mask)
         if model !=None:
@@ -158,7 +158,7 @@ class Patch(object):
 
 
     def loadtexture(self):
-	    file_path = 'Imagebox/Attacks/saving.jpeg'
+	    file_path = 'Attacks/saving.jpeg'
 	    return file_path
     
     def keyfeatureextraction(self,image):
