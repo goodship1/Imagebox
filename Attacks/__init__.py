@@ -1,7 +1,8 @@
-from Attacks import Noise
-from Attacks import Pixel
-from Attacks import Blur
-from Attacks import Contrast
-from Attacks import Rotations
-from Attacks import Patch
+from Attacks.Noise import Noise
+from Attacks.Pixel import Pixel
+from Attacks.Blur import Blur
+from Attacks.Constrast import Contrast
+from Attacks.Rotations import Rotate
+from Attacks.Patch import Patch
+from Attacks.Gradcam import Gradcam
 from Attacks import*
