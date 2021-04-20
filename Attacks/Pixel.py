@@ -91,7 +91,7 @@ class Pixel(object):
         if model == None:
           return add
         elif model != None:
-          pred  = model.predict(add.reshape(1,add.shape[0],add.shape[1],add.shape[2]))
+          pred  = np.argmax(model.predict(add.reshape(1,add.shape[0],add.shape[1],add.shape[2])))
           return (pred,add)
     def pixelshift(self,image,shift,model = None):
 		   image = cv.imread(image)
