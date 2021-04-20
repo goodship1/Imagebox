@@ -149,7 +149,7 @@ class Patch(object):
         new_image = Image.composite(image_two,image, mask)
         if model !=None:
             convert =  np.array(new_image)
-            pred = model.predict(convert.reshape(1,convert.shape[0],convert[1],convert.shape[2]))
+            pred = model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2]))
             return (pred,convert)
 
         if model == None:
