@@ -85,7 +85,7 @@ class Noise(object):
                  
                  image = cv.imread(image)
                  browian = np.random.wald(mean,scale,image.size)
-                 browian = np.random.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
+                 browian = browian.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
                  noise = cv.add(image,browian)
                  if model!=None and label !=None:
 					              pred = np.argmax(model.predict(noise.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
