@@ -82,11 +82,11 @@ class Patch(object):
         return (image,np.array(image),egsp)
       if model != None and classfaction == "binary":
         im =  np.array(image)
-        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]), axis=-1))
+        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2])))
         return (pred,im)
       if model !=None and classfaction == "Multi":
         im = np.array(image)
-        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2]) > 0.5).astype("int32"))
+        pred = np.argmax(model.predict(im.reshape(1,im.shape[0],im.shape[1],im.shape[2])))
         return (pred,im)
   
 
