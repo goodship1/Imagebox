@@ -41,7 +41,7 @@ class Patch(object):
 			      return(image,np.array(image))
         if model != None:
 			      convert = np.array(image)
-			      pred = model.predict(convert.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
+			      pred = model.predict(convert.reshape(1,convert.shape[0],convert.shape[1],convert.shape[2]))
 			      return (pred,convert)
 
     def generatesample(self,image,k):
