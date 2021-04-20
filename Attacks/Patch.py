@@ -139,14 +139,14 @@ class Patch(object):
         noise_patch = self.generatenoisepatch(image)
         image = Image.open(image)
         file_path = 'Attacks/noise12.png'
-        image = Image.open(file_path).resize(image.size)
+        image_two = Image.open(file_path).resize(image.size)
         width,height =  image.size
         mask = Image.new("L", image.size, 0)
         draw = ImageDraw.Draw(mask)
         ran = random.randint(1,10)
         ran_1 = random.randint(1,10)
         draw.ellipse((ran, ran_1, 20, 20), fill=200)
-        new_image = Image.composite(noise_patch,image, mask)
+        new_image = Image.composite(image_two,image, mask)
         if model !=None:
             convert =  np.array(new_image)
             pred = model.predict(convert.reshape(1,convert.shape[0],convert[1],convert.shape[2]))
