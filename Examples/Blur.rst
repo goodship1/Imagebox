@@ -3,10 +3,11 @@ Blur.py
 
 Guassain Blur
 =======
+
 ..   code-block:: python 
   
  
-from Imagebox.Attacks import Blur
+  from Attacks.Blur import Blur
   
   blur = Blur()
   stdv =  1 
@@ -26,7 +27,7 @@ Average Blur
   
 .. code-block:: python 
   
-  from Imagebox.Attacks import Blur
+  from Attacks.Blur import Blur
   
   blur = Blur()
   kernel_size = (3,3)
@@ -41,7 +42,7 @@ Median Blur
 
 .. code-block:: python 
   
-  from Imagebox.Attacks import Blur
+  from Attacks.Blur import Blur
   
   blur = Blur()
   percent = 3
