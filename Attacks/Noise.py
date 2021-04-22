@@ -53,7 +53,7 @@ class Noise(object):
 			    exp = exp.reshape(image.shape[0],image.shape[1],image.shape[2]).astype('uint8')
 			    noise =  cv.add(image,exp)
 			    if model !=None and label!=None:
-				        pred = np.argmax(model.predict(noise.reshape(1,image,shape[0],image.shape[1],image.shape[1])))
+				        pred = np.argmax(model.predict(noise.reshape(1,noise.shape[0],noise.shape[1],noise.shape[1])))
 				        return (pred,noise)
 			    else:
 				      return noise
