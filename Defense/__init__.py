@@ -1,1 +1,1 @@
-from Defense import Training
+from Defense.Training import Training
