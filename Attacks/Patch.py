@@ -220,6 +220,7 @@ class Patch(object):
         grad = Gradcam(model,pred,layers[2])
         grad  = grad.compute_heatmap(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
         return grad
+    
     def adversarialpatch(self,image,imagetwo,model=None):
       image = Image.open(image)
       imagetwo = Image.open(imagetwo).resize((image.size))
