@@ -1,6 +1,6 @@
 # Imagebox
 
-Advarsarial tool-box for attack images in the 2D space. Which contains a number of way.
+A way of generating adversarial simple adversarial samples too fool neural networks.
 
 # Dependencies 
 
