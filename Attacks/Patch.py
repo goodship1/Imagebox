@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw, ImageFilter
 import random
 import cv2 as cv
-from Attacks.Gradcam import Gradcam
 import numpy as np
 
 class Patch(object):
@@ -208,18 +207,7 @@ class Patch(object):
 
 		
           
-    
-    def gradcamsetup(self,image,model):
-        image = cv.imread(image)
-        pred = model.predict(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-        pred =  np.argmax(pred)
-        layers = []
-        for x in(len(model.layers)):
-            layer = (model.get_layer(index = x).name)
-            layers.append(layers)
-        grad = Gradcam(model,pred,layers[2])
-        grad  = grad.compute_heatmap(image.reshape(1,image.shape[0],image.shape[1],image.shape[2]))
-        return grad
+   
     
     def adversarialpatch(self,image,imagetwo,model=None):
       image = Image.open(image)
