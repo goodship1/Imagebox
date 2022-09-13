@@ -79,6 +79,7 @@ class Pixel(object):
           if np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2]))) == target:
             pred = np.argmax(model.predict(change.reshape(1,image.shape[0],image.shape[1],image.shape[2])))
             return (change,pred,location)
+	
     def pixeljitter(self,image,jitter,model=None):
         image = cv.imread(image)
         width = image.shape[0]
@@ -93,7 +94,8 @@ class Pixel(object):
         elif model != None:
           pred  = np.argmax(model.predict(add.reshape(1,add.shape[0],add.shape[1],add.shape[2])))
           return (pred,add)
-    def pixelshift(self,image,shift,model = None):
+    
+  def pixelshift(self,image,shift,model = None):
 		   image = cv.imread(image)
 		   red = image[:,:,0]
 		   blue = image[:,:,1]
